@@ -5,2352 +5,2442 @@
 {% block extra_css %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+  rel="stylesheet">
 
 <style>
-    :root {
-      --glass: rgba(255, 252, 245, 0.04);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --accent: #f59e0b;
-      --accent-bright: #fbbf24;
-      --accent-glow: rgba(245, 158, 11, 0.3);
-      --text-main: #fafafa;
-      --text-muted: #cbd5e1;
-      --bg: #0a0a0f;
-      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  :root {
+    --glass: rgba(255, 252, 245, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --accent: #f59e0b;
+    --accent-bright: #fbbf24;
+    --accent-glow: rgba(245, 158, 11, 0.3);
+    --text-main: #fafafa;
+    --text-muted: #cbd5e1;
+    --bg: #0a0a0f;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1a 40%, var(--bg) 100%);
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* --- NAVIGATION BAR --- */
+  .main-nav {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: auto;
+    padding: 0.75rem 1.5rem;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: all 0.4s var(--ease-out);
+  }
+
+  .main-nav.scrolled {
+    top: 1rem;
+    padding: 0.6rem 1.25rem;
+    background: rgba(10, 10, 15, 0.95);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    padding-right: 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-links a:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .nav-links a.active {
+    color: var(--accent-bright);
+    font-weight: 500;
+  }
+
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0.75rem;
+    right: 0.75rem;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0.6;
+  }
+
+  .nav-cta {
+    margin-left: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent), #ea580c);
+    color: #000;
+    font-weight: 600;
+    font-size: 0.8rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+  }
+
+  /* --- GRAIN TEXTURE --- */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    opacity: 0.045;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Noise.jpg");
+    background-repeat: repeat;
+    animation: grain 8s steps(10) infinite;
+  }
+
+  @keyframes grain {
+
+    0%,
+    100% {
+      transform: translate(0, 0);
     }
 
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-    }
-        
-    body {
-      background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1a 40%, var(--bg) 100%);
-      color: var(--text-main);
-      font-family: 'Outfit', sans-serif;
-      overflow-x: hidden;
-      line-height: 1.6;
-      min-height: 100vh;
+    10% {
+      transform: translate(-5%, -10%);
     }
 
-    /* --- NAVIGATION BAR --- */
-    .main-nav {
-      position: fixed;
-      top: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      width: auto;
-      padding: 0.75rem 1.5rem;
-      background: rgba(10, 10, 15, 0.85);
-      backdrop-filter: blur(30px) saturate(180%);
-      border: 1px solid var(--glass-border);
-      border-radius: 100px;
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transition: all 0.4s var(--ease-out);
+    30% {
+      transform: translate(7%, -25%);
     }
 
-    .main-nav.scrolled {
-      top: 1rem;
-      padding: 0.6rem 1.25rem;
-      background: rgba(10, 10, 15, 0.95);
+    50% {
+      transform: translate(-15%, 10%);
     }
 
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--text-main);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-      padding-right: 1rem;
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    70% {
+      transform: translate(0%, 15%);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 1.25rem;
-      list-style: none;
+    90% {
+      transform: translate(-10%, 10%);
+    }
+  }
+
+  /* --- AMBIENT GLOW --- */
+  .glow-orb {
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    filter: blur(90px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-glow 10s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.3;
     }
 
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 400;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      position: relative;
+    50% {
+      transform: translate(-50%, -50%) scale(1.25);
+      opacity: 0.45;
+    }
+  }
+
+  /* --- ROTATING EARTH ENGINE --- */
+  .viewport-container {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    perspective: 1400px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .world-axis {
+    position: absolute;
+    width: 180vmax;
+    height: 180vmax;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(65deg) rotateZ(0deg);
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.1, 0.1, 0.2, 1);
+  }
+
+  .earth-sphere {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    opacity: 0.65;
+    filter: saturate(0.85) sepia(0.25) brightness(0.65) hue-rotate(-8deg);
+    mask-image: radial-gradient(circle at center, black 35%, transparent 75%);
+    box-shadow:
+      inset 0 0 120px rgba(245, 158, 11, 0.15),
+      0 0 100px rgba(0, 0, 0, 0.5);
+  }
+
+  /* --- REVEAL ANIMATION --- */
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+    will-change: opacity, transform;
+  }
+
+  .reveal-item.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- LAYOUT --- */
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 40px;
+    padding: 4rem 3.5rem;
+    max-width: 900px;
+    width: 100%;
+    box-shadow:
+      0 40px 100px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  /* --- TYPOGRAPHY --- */
+  h1,
+  h2,
+  h3 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 8vw, 3.8rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    color: var(--accent-bright);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+
+  .accent-text {
+    color: var(--accent-bright);
+    font-style: italic;
+    position: relative;
+  }
+
+  .accent-text::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    border-radius: 2px;
+    opacity: 0.5;
+  }
+
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  /* --- INTRO SECTION --- */
+  #intro .glass-card p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 650px;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+
+  .profile-badge {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--accent);
+    animation: breathe 6s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+    box-shadow:
+      0 8px 32px var(--accent-glow),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .avatar::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+    z-index: -1;
+    animation: ring-pulse 20s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+
+    0%,
+    100% {
+      transform: scale(1);
     }
 
-    .nav-links a:hover {
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.03);
+    50% {
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes ring-pulse {
+
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
     }
 
-    .nav-links a.active {
-      color: var(--accent-bright);
-      font-weight: 500;
+    50% {
+      opacity: 0.7;
+      transform: scale(1.1);
     }
+  }
 
-    .nav-links a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0.75rem;
-      right: 0.75rem;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-      opacity: 0.6;
-    }
+  .profile-info strong {
+    display: block;
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
 
-    .nav-cta {
-      margin-left: 0.5rem;
-      padding: 0.6rem 1.5rem;
-      background: linear-gradient(135deg, var(--accent), #ea580c);
-      color: #000;
-      font-weight: 600;
-      font-size: 0.8rem;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
-    }
+  .profile-info span {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
 
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
-    }
+  /* --- CTA BUTTON --- */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.1rem 2.8rem;
+    border-radius: 100px;
+    background: linear-gradient(135deg, var(--text-main), #e5e5e5);
+    color: var(--bg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    transition: all 0.4s var(--ease-out);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
 
-    /* --- GRAIN TEXTURE --- */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      opacity: 0.045;
-      z-index: 0;
-      pointer-events: none;
-      background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Noise.jpg");
-      background-repeat: repeat;
-      animation: grain 8s steps(10) infinite;
-    }
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
 
-    @keyframes grain {
-      0%, 100% { transform: translate(0, 0); }
-      10% { transform: translate(-5%, -10%); }
-      30% { transform: translate(7%, -25%); }
-      50% { transform: translate(-15%, 10%); }
-      70% { transform: translate(0%, 15%); }
-      90% { transform: translate(-10%, 10%); }
-    }
+  .cta-btn span {
+    position: relative;
+    z-index: 1;
+  }
 
-    /* --- AMBIENT GLOW --- */
-    .glow-orb {
-      position: fixed;
-      width: 700px;
-      height: 700px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-      filter: blur(90px);
-      opacity: 0.35;
-      pointer-events: none;
-      z-index: -1;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: pulse-glow 10s ease-in-out infinite;
-    }
+  .cta-btn::after {
+    content: '→';
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s var(--ease-out);
+    font-size: 1.2rem;
+  }
 
-    @keyframes pulse-glow {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-      50% { transform: translate(-50%, -50%) scale(1.25); opacity: 0.45; }
-    }
+  .cta-btn:hover::before {
+    opacity: 1;
+  }
 
-    /* --- ROTATING EARTH ENGINE --- */
-    .viewport-container {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      perspective: 1400px;
-      overflow: hidden;
-      pointer-events: none;
-    }
+  .cta-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+      0 16px 40px var(--accent-glow),
+      0 0 0 1px rgba(245, 158, 11, 0.3);
+  }
 
-    .world-axis {
-      position: absolute;
-      width: 180vmax;
-      height: 180vmax;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotateX(65deg) rotateZ(0deg);
-      transform-style: preserve-3d;
-      will-change: transform;
-      transition: transform 0.6s cubic-bezier(0.1, 0.1, 0.2, 1);
-    }
+  .cta-btn:hover::after {
+    transform: translateX(4px);
+  }
 
-    .earth-sphere {
-      position: absolute;
-      inset: 0;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      border-radius: 50%;
-      opacity: 0.65;
-      filter: saturate(0.85) sepia(0.25) brightness(0.65) hue-rotate(-8deg);
-      mask-image: radial-gradient(circle at center, black 35%, transparent 75%);
-      box-shadow: 
-        inset 0 0 120px rgba(245, 158, 11, 0.15),
-        0 0 100px rgba(0, 0, 0, 0.5);
-    }
+  /* --- SECTION HEADERS --- */
+  .section-header {
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
 
-    /* --- REVEAL ANIMATION --- */
-    .reveal-item {
+  .section-header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    font-weight: 300;
+    margin-top: -0.5rem;
+  }
+
+  .highlight {
+    color: var(--accent-bright);
+    font-weight: 500;
+  }
+
+  /* --- EXPANDABLE CARD SYSTEM (PUBLICATIONS & MANIFESTO) --- */
+  .expandable-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .expandable-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: all 0.4s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .expandable-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  }
+
+  .expandable-card.expanded {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--accent);
+  }
+
+  .card-preview {
+    display: block;
+  }
+
+  .card-expanded {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .expandable-card.expanded .card-preview {
+    display: block;
+  }
+
+  .expandable-card.expanded .card-expanded {
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .card-tag {
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .expand-toggle {
+    background: none;
+    border: none;
+    color: var(--accent-bright);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .expand-toggle:hover {
+    background: rgba(245, 158, 11, 0.1);
+  }
+
+  .expand-toggle svg {
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .expandable-card.expanded .expand-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .card-preview h3 {
+    font-size: 1.3rem;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.3;
+  }
+
+  .preview-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* --- EXPANDABLE GRID SYSTEM (WHY BUILD WITH ME) --- */
+  #about .expandable-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  #about .expandable-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: all 0.4s var(--ease-out);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #about .expandable-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  }
+
+  .pillar-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  #about .expandable-card:hover .pillar-icon {
+    transform: scale(1.1);
+  }
+
+  #about .expandable-card h3 {
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .summary {
+    font-size: 0.95rem;
+    color: var(--accent-bright);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .expand-hint {
+    margin-top: auto;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .expand-hint span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  /* --- REVEAL LOGIC FOR WHY BUILD WITH ME --- */
+  .card-visible-part {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .card-hidden-part {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.5s var(--ease-out), opacity 0.3s ease, margin 0.3s ease;
+  }
+
+  #about .expandable-card.active {
+    background: rgba(10, 10, 15, 0.6);
+    border-color: var(--accent);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(245, 158, 11, 0.2);
+  }
+
+  #about .expandable-card.active .card-hidden-part {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 1.5rem;
+  }
+
+  #about .expandable-card.active .expand-hint span {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  #about .expandable-card.active .expand-hint {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  .reveal-wrapper {
+    overflow: hidden;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1rem;
+  }
+
+  .reveal-wrapper strong {
+    color: var(--accent-bright);
+    font-weight: 600;
+  }
+
+  /* Project-specific expanded content */
+  .investment-metrics {
+    display: flex;
+    justify-content: space-around;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+  }
+
+  .metric {
+    text-align: center;
+  }
+
+  .metric-circle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+  }
+
+  .metric-circle svg {
+    transform: rotate(-90deg);
+  }
+
+  .metric-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .contribution-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+  }
+
+  .contribution-list li {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .contribution-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .market-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .market-stat {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-bright);
+  }
+
+  .stat-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .framework-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .framework-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+  }
+
+  .framework-item h5 {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+
+  .framework-item p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 1.5rem 0 1rem;
+  }
+
+  .tech-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    font-weight: 400;
+    transition: all 0.3s ease;
+  }
+
+  .tech-badge:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: var(--accent-bright);
+  }
+
+  .card-action {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .action-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* Manifesto-specific styles */
+  .manifesto-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .manifesto-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), #ea580c);
+    color: #000;
+    padding: 0.6rem 1.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+  }
+
+  .manifesto-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+
+  .manifesto-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .manifesto-card.expanded .principle-number {
+    color: var(--accent-bright);
+  }
+
+  .principle-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.5;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+  }
+
+  .core-quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--accent);
+    color: var(--text-main);
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* TRIANGULAR CYCLE VISUALIZATION */
+  .cycle-triangle {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cycle-node {
+    position: absolute;
+    width: 200px;
+    text-align: center;
+    transition: all 0.4s var(--ease-out);
+    z-index: 2;
+  }
+
+  .cycle-node[data-stage="exploration"] {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .cycle-node[data-stage="experimentation"] {
+    bottom: 40px;
+    left: 15%;
+    transform: translateX(-50%);
+  }
+
+  .cycle-node[data-stage="innovation"] {
+    bottom: 40px;
+    right: 15%;
+    transform: translateX(50%);
+  }
+
+  .node-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s var(--ease-out);
+    position: relative;
+    z-index: 3;
+  }
+
+  .cycle-node:hover .node-circle {
+    transform: scale(1.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .node-icon {
+    font-size: 2rem;
+    transition: all 0.4s var(--ease-out);
+  }
+
+  .cycle-node:hover .node-icon {
+    transform: scale(1.2);
+  }
+
+  .node-content {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s var(--ease-out);
+  }
+
+  .cycle-node:hover .node-content {
+    border-color: var(--accent);
+    background: rgba(245, 158, 11, 0.03);
+    transform: translateY(-5px);
+  }
+
+  .node-title {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .node-description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .connection-line {
+    position: absolute;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    height: 2px;
+    z-index: 1;
+  }
+
+  .connection-line::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .connection-line.top-left {
+    width: 120px;
+    transform: rotate(-45deg);
+    top: 40px;
+    left: -100px;
+  }
+
+  .connection-line.top-right {
+    width: 120px;
+    transform: rotate(45deg);
+    top: 40px;
+    right: -100px;
+  }
+
+  .connection-line.bottom-left {
+    width: 150px;
+    transform: rotate(15deg);
+    bottom: 40px;
+    left: 60px;
+  }
+
+  .connection-line.left-up {
+    width: 150px;
+    transform: rotate(165deg);
+    bottom: 40px;
+    left: 60px;
+  }
+
+  .connection-line.bottom-right {
+    width: 150px;
+    transform: rotate(-15deg);
+    bottom: 40px;
+    right: 60px;
+  }
+
+  .connection-line.right-up {
+    width: 150px;
+    transform: rotate(-165deg);
+    bottom: 40px;
+    right: 60px;
+  }
+
+  .cycle-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .center-circle {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .cycle-label {
+    position: absolute;
+    bottom: -30px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Animated flow dots */
+  .flow-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .flow-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    filter: blur(1px);
+    opacity: 0;
+    animation: flow-around 3s linear infinite;
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .insight-card {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .insight-tag {
+    background: var(--accent);
+    color: #000;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .capability {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .capability:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .warning-quote {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
+    margin: 1.5rem 0;
+    font-style: italic;
+  }
+
+  .sustainability-meter {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+  }
+
+  .meter-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+
+  .meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+    border-radius: 3px;
+    width: 65%;
+  }
+
+  /* --- ABOUT SECTION --- */
+  #about .glass-card {
+    text-align: left;
+  }
+
+  #about .section-header {
+    margin-bottom: 3rem;
+  }
+
+  #about .section-header p {
+    max-width: 600px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-top: 1rem;
+  }
+
+  #about .section-header strong {
+    color: var(--accent-bright);
+    font-weight: 600;
+  }
+
+  .about-footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-style: italic;
+    color: var(--text-muted);
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .about-footer p {
+    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--text-main);
+    opacity: 0.9;
+  }
+
+  /* --- CONTACT SECTION --- */
+  #contact .glass-card {
+    text-align: center;
+  }
+
+  #contact .section-header {
+    text-align: center;
+  }
+
+  #contact .section-header p {
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.35s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .contact-link span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-link:hover::before {
+    opacity: 0.15;
+  }
+
+  .contact-link:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(245, 158, 11, 0.25);
+  }
+
+  .contact-link.primary {
+    background: linear-gradient(135deg, var(--text-main), #e5e5e5);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  .contact-link.primary:hover {
+    background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+  }
+
+  .contact-link.primary::before {
+    display: none;
+  }
+
+  /* --- FOOTER --- */
+  footer {
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    z-index: 10;
+    position: relative;
+  }
+
+  footer nav {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+  }
+
+  footer a:hover {
+    color: var(--accent-bright);
+  }
+
+  footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+    letter-spacing: 0.15em;
+    font-weight: 300;
+  }
+
+  /* --- ANIMATIONS --- */
+  @keyframes fadeIn {
+    from {
       opacity: 0;
-      transform: translateY(48px);
-      transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
-      will-change: opacity, transform;
+      transform: translateY(10px);
     }
 
-    .reveal-item.is-revealed {
+    to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
 
-    /* --- LAYOUT --- */
+  @keyframes circle-fill {
+    from {
+      stroke-dasharray: 0, 100;
+    }
+  }
+
+  @keyframes flow-around {
+    0% {
+      opacity: 0;
+      top: 40px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    33% {
+      top: calc(100% - 80px);
+      left: 15%;
+    }
+
+    66% {
+      top: calc(100% - 80px);
+      left: 85%;
+    }
+
+    90% {
+      opacity: 1;
+      top: 40px;
+      left: 50%;
+    }
+
+    100% {
+      opacity: 0;
+      top: 40px;
+      left: 50%;
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .main-nav {
+      top: 1rem;
+      padding: 0.6rem 1rem;
+      width: calc(100% - 2rem);
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      padding-right: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .nav-cta {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.75rem;
+    }
+
     section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 8rem 2rem;
-      position: relative;
-      z-index: 2;
+      padding: 6rem 1.5rem 4rem;
+      min-height: auto;
     }
 
     .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(40px) saturate(180%);
-      border: 1px solid var(--glass-border);
-      border-radius: 40px;
-      padding: 4rem 3.5rem;
-      max-width: 900px;
-      width: 100%;
-      box-shadow: 
-        0 40px 100px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      position: relative;
-      overflow: hidden;
+      padding: 2.5rem 2rem;
+      border-radius: 32px;
     }
 
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.04) 0%, transparent 50%);
-      pointer-events: none;
-      opacity: 0.8;
+    h1 {
+      font-size: 2.2rem;
     }
 
-    /* --- TYPOGRAPHY --- */
-    h1, h2, h3 { 
-      font-family: 'Playfair Display', serif;
-      letter-spacing: -0.02em;
-    }
-    
-    h1 { 
-      font-size: clamp(2.5rem, 8vw, 3.8rem); 
-      line-height: 1.15; 
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-    }
-    
-    h2 { 
-      font-size: 2.8rem; 
-      margin-bottom: 2rem; 
-      color: var(--accent-bright);
-      font-weight: 700;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.8rem;
-      font-weight: 600;
-    }
-    
-    .accent-text { 
-      color: var(--accent-bright); 
-      font-style: italic;
-      position: relative;
-    }
-
-    .accent-text::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      border-radius: 2px;
-      opacity: 0.5;
-    }
-
-    .kicker {
-      text-transform: uppercase;
-      letter-spacing: 0.3em;
-      font-size: 0.7rem;
-      color: var(--accent);
-      display: block;
-      margin-bottom: 1.5rem;
-      font-weight: 600;
-    }
-
-    /* --- INTRO SECTION --- */
-    #intro .glass-card p {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      font-weight: 300;
-      max-width: 650px;
-      line-height: 1.75;
-      margin-bottom: 2rem;
-    }
-
-    .profile-badge {
-      margin-top: 3rem;
-      padding-top: 2.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      border: 2px solid var(--accent);
-      animation: breathe 6s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
-      box-shadow: 
-        0 8px 32px var(--accent-glow),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.1);
-    }
-
-    .avatar::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-      z-index: -1;
-      animation: ring-pulse 20s ease-in-out infinite;
-    }
-
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
-    }
-
-    @keyframes ring-pulse {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.1); }
-    }
-
-    .profile-info strong {
-      display: block;
-      font-size: 1.15rem;
-      margin-bottom: 0.3rem;
-      font-weight: 600;
-    }
-
-    .profile-info span {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* --- CTA BUTTON --- */
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1.1rem 2.8rem;
-      border-radius: 100px;
-      background: linear-gradient(135deg, var(--text-main), #e5e5e5);
-      color: var(--bg);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-top: 1rem;
-      transition: all 0.4s var(--ease-out);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--accent-bright), var(--accent));
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .cta-btn span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-btn::after {
-      content: '→';
-      position: relative;
-      z-index: 1;
-      transition: transform 0.4s var(--ease-out);
-      font-size: 1.2rem;
-    }
-
-    .cta-btn:hover::before {
-      opacity: 1;
-    }
-
-    .cta-btn:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 
-        0 16px 40px var(--accent-glow),
-        0 0 0 1px rgba(245, 158, 11, 0.3);
-    }
-
-    .cta-btn:hover::after {
-      transform: translateX(4px);
-    }
-
-    /* --- SECTION HEADERS --- */
-    .section-header {
-      margin-bottom: 1.5rem;
-      width: 100%;
-    }
-
-    .section-header p {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      font-weight: 300;
-      margin-top: -0.5rem;
-    }
-
-    .highlight {
-      color: var(--accent-bright);
-      font-weight: 500;
-    }
-
-    /* --- EXPANDABLE CARD SYSTEM (PUBLICATIONS & MANIFESTO) --- */
-    .expandable-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .expandable-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 2rem;
-      transition: all 0.4s var(--ease-out);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .expandable-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    }
-
-    .expandable-card.expanded {
-      background: rgba(255, 255, 255, 0.03);
-      border-color: var(--accent);
-    }
-
-    .card-preview {
-      display: block;
-    }
-
-    .card-expanded {
-      display: none;
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    .expandable-card.expanded .card-preview {
-      display: block;
-    }
-
-    .expandable-card.expanded .card-expanded {
-      display: block;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-
-    .card-tag {
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .expand-toggle {
-      background: none;
-      border: none;
-      color: var(--accent-bright);
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-    }
-
-    .expand-toggle:hover {
-      background: rgba(245, 158, 11, 0.1);
-    }
-
-    .expand-toggle svg {
-      transition: transform 0.4s var(--ease-out);
-    }
-
-    .expandable-card.expanded .expand-toggle svg {
-      transform: rotate(180deg);
-    }
-
-    .card-preview h3 {
-      font-size: 1.3rem;
-      margin: 0.5rem 0 1rem;
-      line-height: 1.3;
-    }
-
-    .preview-text {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* --- EXPANDABLE GRID SYSTEM (WHY BUILD WITH ME) --- */
-    #about .expandable-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    #about .expandable-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 2rem;
-      transition: all 0.4s var(--ease-out);
-      cursor: pointer;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #about .expandable-card:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: var(--accent);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    }
-
-    .pillar-icon {
+    h2 {
       font-size: 2rem;
-      margin-bottom: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    #about .expandable-card:hover .pillar-icon {
-      transform: scale(1.1);
-    }
-
-    #about .expandable-card h3 {
-      font-size: 1.3rem;
-      color: var(--text-main);
-      margin-bottom: 0.5rem;
-      line-height: 1.3;
-    }
-
-    .summary {
-      font-size: 0.95rem;
-      color: var(--accent-bright);
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .expand-hint {
-      margin-top: auto;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      opacity: 0.6;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .expand-hint span {
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-
-    /* --- REVEAL LOGIC FOR WHY BUILD WITH ME --- */
-    .card-visible-part {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .card-hidden-part {
-      display: grid;
-      grid-template-rows: 0fr;
-      opacity: 0;
-      transition: grid-template-rows 0.5s var(--ease-out), opacity 0.3s ease, margin 0.3s ease;
-    }
-
-    #about .expandable-card.active {
-      background: rgba(10, 10, 15, 0.6);
-      border-color: var(--accent);
-      box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(245, 158, 11, 0.2);
-    }
-
-    #about .expandable-card.active .card-hidden-part {
-      grid-template-rows: 1fr;
-      opacity: 1;
-      margin-top: 1.5rem;
-    }
-
-    #about .expandable-card.active .expand-hint span {
-      transform: rotate(180deg);
-      color: var(--accent);
-    }
-
-    #about .expandable-card.active .expand-hint {
-      color: var(--accent);
-      opacity: 1;
-    }
-
-    .reveal-wrapper {
-      overflow: hidden;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 1rem;
-    }
-
-    .reveal-wrapper strong {
-      color: var(--accent-bright);
-      font-weight: 600;
-    }
-
-    /* Project-specific expanded content */
-    .investment-metrics {
-      display: flex;
-      justify-content: space-around;
-      margin: 1.5rem 0;
-      padding: 1.5rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 16px;
-    }
-
-    .metric {
-      text-align: center;
-    }
-
-    .metric-circle {
-      position: relative;
-      width: 60px;
-      height: 60px;
-      margin: 0 auto;
-    }
-
-    .metric-circle svg {
-      transform: rotate(-90deg);
-    }
-
-    .metric-value {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .metric-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-    }
-
-    .contribution-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 1rem 0;
-    }
-
-    .contribution-list li {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-      padding-left: 1.2rem;
-      position: relative;
-    }
-
-    .contribution-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-
-    .market-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-
-    .market-stat {
-      text-align: center;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 12px;
-    }
-
-    .stat-number {
-      display: block;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent-bright);
-    }
-
-    .stat-desc {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-    }
-
-    .framework-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-
-    .framework-item {
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 12px;
-    }
-
-    .framework-item h5 {
-      font-size: 0.9rem;
-      color: var(--text-main);
-      margin-bottom: 0.25rem;
-      font-weight: 600;
-    }
-
-    .framework-item p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin: 1.5rem 0 1rem;
-    }
-
-    .tech-badge {
-      font-size: 0.75rem;
-      padding: 0.4rem 0.9rem;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
-      font-weight: 400;
-      transition: all 0.3s ease;
-    }
-
-    .tech-badge:hover {
-      background: rgba(245, 158, 11, 0.1);
-      border-color: rgba(245, 158, 11, 0.3);
-      color: var(--accent-bright);
-    }
-
-    .card-action {
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .action-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-main);
-      border: 1px solid var(--glass-border);
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .action-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    /* Manifesto-specific styles */
-    .manifesto-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .manifesto-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--accent), #ea580c);
-      color: #000;
-      padding: 0.6rem 1.8rem;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
     }
 
     .manifesto-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      letter-spacing: -1px;
+      font-size: 2rem;
     }
 
-    .manifesto-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-      font-weight: 300;
+    .expandable-grid {
+      grid-template-columns: 1fr;
     }
 
-    .manifesto-card.expanded .principle-number {
-      color: var(--accent-bright);
-    }
-
-    .principle-number {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--accent);
-      opacity: 0.5;
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 0.5rem;
-    }
-
-    .core-quote {
-      font-size: 1.2rem;
-      font-style: italic;
-      margin: 1.5rem 0;
-      padding-left: 1.5rem;
-      border-left: 3px solid var(--accent);
-      color: var(--text-main);
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* TRIANGULAR CYCLE VISUALIZATION */
-    .cycle-triangle {
-        position: relative;
-        width: 100%;
-        height: 400px;
-        margin: 2rem 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .cycle-node {
-        position: absolute;
-        width: 200px;
-        text-align: center;
-        transition: all 0.4s var(--ease-out);
-        z-index: 2;
-    }
-
-    .cycle-node[data-stage="exploration"] {
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .cycle-node[data-stage="experimentation"] {
-        bottom: 40px;
-        left: 15%;
-        transform: translateX(-50%);
-    }
-
-    .cycle-node[data-stage="innovation"] {
-        bottom: 40px;
-        right: 15%;
-        transform: translateX(50%);
-    }
-
-    .node-circle {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 1rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 2px solid var(--glass-border);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.4s var(--ease-out);
-        position: relative;
-        z-index: 3;
-    }
-
-    .cycle-node:hover .node-circle {
-        transform: scale(1.1);
-        border-color: var(--accent);
-        box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
-        background: rgba(245, 158, 11, 0.05);
-    }
-
-    .node-icon {
-        font-size: 2rem;
-        transition: all 0.4s var(--ease-out);
-    }
-
-    .cycle-node:hover .node-icon {
-        transform: scale(1.2);
-    }
-
-    .node-content {
-        padding: 1rem;
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.4s var(--ease-out);
-    }
-
-    .cycle-node:hover .node-content {
-        border-color: var(--accent);
-        background: rgba(245, 158, 11, 0.03);
-        transform: translateY(-5px);
-    }
-
-    .node-title {
-        font-size: 1.1rem;
-        color: var(--text-main);
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-
-    .node-description {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        line-height: 1.4;
-    }
-
-    .connection-line {
-        position: absolute;
-        background: linear-gradient(90deg, var(--accent), transparent);
-        height: 2px;
-        z-index: 1;
-    }
-
-    .connection-line::after {
-        content: '';
-        position: absolute;
-        right: -6px;
-        top: -4px;
-        width: 10px;
-        height: 10px;
-        background: var(--accent);
-        border-radius: 50%;
-        box-shadow: 0 0 10px var(--accent);
-    }
-
-    .connection-line.top-left {
-        width: 120px;
-        transform: rotate(-45deg);
-        top: 40px;
-        left: -100px;
-    }
-
-    .connection-line.top-right {
-        width: 120px;
-        transform: rotate(45deg);
-        top: 40px;
-        right: -100px;
-    }
-
-    .connection-line.bottom-left {
-        width: 150px;
-        transform: rotate(15deg);
-        bottom: 40px;
-        left: 60px;
-    }
-
-    .connection-line.left-up {
-        width: 150px;
-        transform: rotate(165deg);
-        bottom: 40px;
-        left: 60px;
-    }
-
-    .connection-line.bottom-right {
-        width: 150px;
-        transform: rotate(-15deg);
-        bottom: 40px;
-        right: 60px;
-    }
-
-    .connection-line.right-up {
-        width: 150px;
-        transform: rotate(-165deg);
-        bottom: 40px;
-        right: 60px;
-    }
-
-    .cycle-center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
-    }
-
-    .center-circle {
-        width: 120px;
-        height: 120px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-
-    .cycle-label {
-        position: absolute;
-        bottom: -30px;
-        font-size: 0.8rem;
-        color: var(--accent);
-        font-weight: 600;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    /* Animated flow dots */
-    .flow-indicator {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .flow-dot {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: var(--accent);
-        border-radius: 50%;
-        filter: blur(1px);
-        opacity: 0;
-        animation: flow-around 3s linear infinite;
-        box-shadow: 0 0 10px var(--accent);
-    }
-
-    .insight-card {
-      background: rgba(245, 158, 11, 0.08);
-      border: 1px solid rgba(245, 158, 11, 0.2);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .insight-tag {
-      background: var(--accent);
-      color: #000;
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-    }
-
-    .capability-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    #about .expandable-grid {
+      grid-template-columns: 1fr;
       gap: 1rem;
-      margin: 1.5rem 0;
     }
 
-    .capability {
+    #about .expandable-card {
       padding: 1.5rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 16px;
-      transition: all 0.3s ease;
     }
 
-    .capability:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.05);
+    .pillar-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
     }
 
-    .warning-quote {
+    #about .expandable-card h3 {
       font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-align: center;
-      margin: 1.5rem 0;
-      font-style: italic;
-    }
-
-    .sustainability-meter {
-      margin: 1.5rem 0;
-      padding: 1.5rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 16px;
-    }
-
-    .meter-bar {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-      overflow: hidden;
-      margin: 1rem 0;
-    }
-
-    .meter-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
-      border-radius: 3px;
-      width: 65%;
-    }
-
-    /* --- ABOUT SECTION --- */
-    #about .glass-card {
-      text-align: left;
     }
 
     #about .section-header {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
-    #about .section-header p {
-      max-width: 600px;
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: var(--text-muted);
-      margin-top: 1rem;
+    #about .section-header h2 {
+      font-size: 2.2rem;
     }
 
-    #about .section-header strong {
-      color: var(--accent-bright);
-      font-weight: 600;
+    .cycle-triangle {
+      height: 350px;
     }
 
-    .about-footer {
-      margin-top: 3rem;
-      text-align: center;
-      font-style: italic;
-      color: var(--text-muted);
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    .cycle-node {
+      width: 150px;
     }
 
-    .about-footer p {
-      font-size: 1.1rem;
-      font-family: 'Playfair Display', serif;
-      color: var(--text-main);
-      opacity: 0.9;
+    .node-circle {
+      width: 60px;
+      height: 60px;
     }
 
-    /* --- CONTACT SECTION --- */
-    #contact .glass-card {
-      text-align: center;
+    .node-icon {
+      font-size: 1.5rem;
     }
 
-    #contact .section-header {
-      text-align: center;
+    .node-title {
+      font-size: 1rem;
     }
 
-    #contact .section-header p {
-      margin-bottom: 3rem;
+    .node-description {
+      font-size: 0.8rem;
+    }
+
+    .center-circle {
+      width: 100px;
+      height: 100px;
+    }
+
+    .cycle-node[data-stage="experimentation"] {
+      left: 10%;
+    }
+
+    .cycle-node[data-stage="innovation"] {
+      right: 10%;
+    }
+
+    .connection-line.top-left,
+    .connection-line.top-right {
+      width: 80px;
+    }
+
+    .connection-line.bottom-left,
+    .connection-line.left-up,
+    .connection-line.bottom-right,
+    .connection-line.right-up {
+      width: 100px;
+    }
+
+    .market-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .framework-grid {
+      grid-template-columns: 1fr;
     }
 
     .contact-links {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .contact-link {
-      padding: 1rem 2.5rem;
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.02);
-      color: var(--text-main);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.35s var(--ease-out);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-link::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--accent-bright), var(--accent));
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    .contact-link span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-link:hover::before {
-      opacity: 0.15;
-    }
-
-    .contact-link:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent);
-      box-shadow: 0 12px 32px rgba(245, 158, 11, 0.25);
-    }
-
-    .contact-link.primary {
-      background: linear-gradient(135deg, var(--text-main), #e5e5e5);
-      color: var(--bg);
-      font-weight: 600;
-    }
-
-    .contact-link.primary:hover {
-      background: linear-gradient(135deg, var(--accent-bright), var(--accent));
-    }
-
-    .contact-link.primary::before {
-      display: none;
-    }
-
-    /* --- FOOTER --- */
-    footer {
-      padding: 5rem 2rem 3rem;
-      text-align: center;
-      border-top: 1px solid var(--glass-border);
-      background: rgba(10, 10, 15, 0.8);
-      backdrop-filter: blur(20px);
-      z-index: 10;
-      position: relative;
+      flex-direction: column;
     }
 
     footer nav {
-      margin-bottom: 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.3s;
-    }
-
-    footer a:hover {
-      color: var(--accent-bright);
-    }
-
-    footer p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      opacity: 0.7;
-      letter-spacing: 0.15em;
-      font-weight: 300;
-    }
-
-    /* --- ANIMATIONS --- */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes circle-fill {
-      from { stroke-dasharray: 0, 100; }
+    .world-axis {
+      width: 200vmax;
+      height: 200vmax;
     }
 
     @keyframes flow-around {
-        0% {
-            opacity: 0;
-            top: 40px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        10% {
-            opacity: 1;
-        }
-        33% {
-            top: calc(100% - 80px);
-            left: 15%;
-        }
-        66% {
-            top: calc(100% - 80px);
-            left: 85%;
-        }
-        90% {
-            opacity: 1;
-            top: 40px;
-            left: 50%;
-        }
-        100% {
-            opacity: 0;
-            top: 40px;
-            left: 50%;
-        }
-    }
-
-    @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    /* --- RESPONSIVE --- */
-    @media (max-width: 768px) {
-      .main-nav {
-        top: 1rem;
-        padding: 0.6rem 1rem;
-        width: calc(100% - 2rem);
-        justify-content: space-between;
+      0% {
+        top: 30px;
+        left: 50%;
       }
 
-      .nav-logo {
-        padding-right: 0.5rem;
-        font-size: 1.1rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .nav-cta {
-        padding: 0.5rem 1.2rem;
-        font-size: 0.75rem;
-      }
-
-      section { 
-        padding: 6rem 1.5rem 4rem;
-        min-height: auto;
-      }
-      
-      .glass-card { 
-        padding: 2.5rem 2rem;
-        border-radius: 32px;
-      }
-
-      h1 { font-size: 2.2rem; }
-      h2 { font-size: 2rem; }
-      .manifesto-title { font-size: 2rem; }
-
-      .expandable-grid {
-        grid-template-columns: 1fr;
-      }
-
-      #about .expandable-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      
-      #about .expandable-card {
-        padding: 1.5rem;
-      }
-      
-      .pillar-icon {
-        font-size: 1.8rem;
-        margin-bottom: 0.75rem;
-      }
-      
-      #about .expandable-card h3 {
-        font-size: 1.2rem;
-      }
-      
-      #about .section-header {
-        margin-bottom: 2rem;
-      }
-      
-      #about .section-header h2 {
-        font-size: 2.2rem;
-      }
-
-      .cycle-triangle {
-        height: 350px;
-      }
-
-      .cycle-node {
-        width: 150px;
-      }
-
-      .node-circle {
-        width: 60px;
-        height: 60px;
-      }
-
-      .node-icon {
-        font-size: 1.5rem;
-      }
-
-      .node-title {
-        font-size: 1rem;
-      }
-
-      .node-description {
-        font-size: 0.8rem;
-      }
-
-      .center-circle {
-        width: 100px;
-        height: 100px;
-      }
-
-      .cycle-node[data-stage="experimentation"] {
+      33% {
+        top: calc(100% - 60px);
         left: 10%;
       }
 
-      .cycle-node[data-stage="innovation"] {
-        right: 10%;
+      66% {
+        top: calc(100% - 60px);
+        left: 90%;
       }
 
-      .connection-line.top-left,
-      .connection-line.top-right {
-        width: 80px;
-      }
-
-      .connection-line.bottom-left,
-      .connection-line.left-up,
-      .connection-line.bottom-right,
-      .connection-line.right-up {
-        width: 100px;
-      }
-
-      .market-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .framework-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-links {
-        flex-direction: column;
-      }
-
-      footer nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .world-axis {
-        width: 200vmax;
-        height: 200vmax;
-      }
-
-      @keyframes flow-around {
-          0% {
-              top: 30px;
-              left: 50%;
-          }
-          33% {
-              top: calc(100% - 60px);
-              left: 10%;
-          }
-          66% {
-              top: calc(100% - 60px);
-              left: 90%;
-          }
-          100% {
-              top: 30px;
-              left: 50%;
-          }
+      100% {
+        top: 30px;
+        left: 50%;
       }
     }
+  }
 
-    /* For even smaller screens */
-    @media (max-width: 480px) {
-      .cycle-triangle {
-        height: 300px;
-      }
-
-      .cycle-node {
-        width: 120px;
-      }
-
-      .node-circle {
-        width: 50px;
-        height: 50px;
-      }
-
-      .node-icon {
-        font-size: 1.2rem;
-      }
-
-      .node-title {
-        font-size: 0.9rem;
-      }
-
-      .node-description {
-        font-size: 0.75rem;
-      }
-
-      .center-circle {
-        width: 80px;
-        height: 80px;
-      }
-
-      .center-circle svg {
-        width: 50px;
-        height: 50px;
-      }
+  /* For even smaller screens */
+  @media (max-width: 480px) {
+    .cycle-triangle {
+      height: 300px;
     }
+
+    .cycle-node {
+      width: 120px;
+    }
+
+    .node-circle {
+      width: 50px;
+      height: 50px;
+    }
+
+    .node-icon {
+      font-size: 1.2rem;
+    }
+
+    .node-title {
+      font-size: 0.9rem;
+    }
+
+    .node-description {
+      font-size: 0.75rem;
+    }
+
+    .center-circle {
+      width: 80px;
+      height: 80px;
+    }
+
+    .center-circle svg {
+      width: 50px;
+      height: 50px;
+    }
+  }
 </style>
 {% endblock extra_css %}
 
 {% block content %}
 <nav class="main-nav" id="mainNav">
-    <a href="#intro" class="nav-logo">JK</a>
-    <ul class="nav-links">
-        <li><a href="#intro" class="active">Home</a></li>
-        <li><a href="#projects">Publications</a></li>
-        <li><a href="#manifesto">Purpose</a></li>
-        <li><a href="#about">Bio</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta">Connect</a>
+  <a href="#intro" class="nav-logo">JK</a>
+  <ul class="nav-links">
+    <li><a href="#intro" class="active">Home</a></li>
+    <li><a href="#projects">Publications</a></li>
+    <li><a href="#manifesto">Purpose</a></li>
+    <li><a href="#about">Bio</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Connect</a>
 </nav>
 
 <div class="glow-orb"></div>
 
 <div class="viewport-container">
-    <div class="world-axis" id="world-axis">
-        <div class="earth-sphere" style="background-image: url({% static 'images/Gemini_Generated_Image_xral6vxral6vxral.png' %});"></div>
-    </div>
+  <div class="world-axis" id="world-axis">
+    <div class="earth-sphere"
+      style="background-image: url({% static 'images/Gemini_Generated_Image_xral6vxral6vxral.png' %});"></div>
+  </div>
 </div>
 
 <section id="intro">
-    <div class="glass-card reveal-item">
-        <span class="kicker">Architecting Digital Value</span>
-        <h1>Engineering for the <span class="accent-text">long horizon.</span></h1>
-        
-        <p>
-            Architecting digital systems that bridge the gap between complex code and tangible human impact. 
-            Based in Nairobi, building for the world.
-        </p>
+  <div class="glass-card reveal-item">
+    <span class="kicker">Architecting Digital Value</span>
+    <h1>Engineering for the <span class="accent-text">long horizon.</span></h1>
 
-        <div class="profile-badge">
-            {% if page.profile_image %}
-                {% image page.profile_image fill-150x150 as avatar_img %}
-                <div class="avatar" style="background-image: url('{{ avatar_img.url }}');"></div>
-            {% else %}
-                <div class="avatar" style="display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), #ea580c); color: #000; font-weight: bold; font-size: 1.5rem;">J</div>
-            {% endif %}
+    <p>
+      Architecting digital systems that bridge the gap between complex code and tangible human impact.
+      Based in Nairobi, building for the world.
+    </p>
 
-            <div class="profile-info">
-                <strong>Nairobi, Kenya</strong>
-                <span>Systems Architect · Software Engineer</span>
-            </div>
-        </div>
+    <div class="profile-badge">
+      {% if page.profile_image %}
+      {% image page.profile_image fill-150x150 as avatar_img %}
+      <div class="avatar" style="background-image: url('{{ avatar_img.url }}');"></div>
+      {% else %}
+      <div class="avatar"
+        style="display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), #ea580c); color: #000; font-weight: bold; font-size: 1.5rem;">
+        J</div>
+      {% endif %}
 
-        <a href="#projects" class="cta-btn">
-            <span>Explore the Journey</span>
-        </a>
+      <div class="profile-info">
+        <strong>Nairobi, Kenya</strong>
+        <span>Systems Architect · Software Engineer</span>
+      </div>
     </div>
+
+    <a href="#projects" class="cta-btn">
+      <span>Acknowledge the Journey</span>
+    </a>
+  </div>
 </section>
 
 <section id="projects">
-    <div class="glass-card reveal-item">
-        <header class="section-header">
-            <h2>Publications</h2>
-            <p>
-                Strategic engineering at the intersection of finance and technology.
-                <span class="highlight">Building at terrible economics is a trap, not a triumph.</span>
-            </p>
-        </header>
+  <div class="glass-card reveal-item">
+    <header class="section-header">
+      <h2>Publications</h2>
+      <p>
+        Strategic engineering at the intersection of finance and technology.
+        <span class="highlight">Building at terrible economics is a trap, not a triumph.</span>
+      </p>
+    </header>
 
-        <div class="expandable-grid">
-            <!-- Cattle-as-an-Asset Platform -->
-            <article class="expandable-card" data-project="cattle">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-tag">On Sale · $150k Valuation</div>
-                            <h3>Cattle-as-an-Asset Platform</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand project details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="preview-text">
-                        Fintech engine bridging traditional livestock investment with IoT tracking and M-Pesa integration.
-                    </p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">Django</span>
-                        <span class="tech-badge">PostgreSQL</span>
-                        <span class="tech-badge">IoT</span>
-                    </div>
-                </div>
-                
-                <div class="card-expanded">
-                    <p><strong>Transforming physical assets into liquid, trackable investments.</strong></p>
-                    
-                    <div class="investment-metrics">
-                        <div class="metric">
-                            <div class="metric-circle" data-percent="85">
-                                <svg viewBox="0 0 36 36">
-                                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                        fill="none" stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100"/>
-                                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                        fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="85, 100" stroke-linecap="round"/>
-                                </svg>
-                                <span class="metric-value">85%</span>
-                            </div>
-                            <div class="metric-label">Market Readiness</div>
-                        </div>
-                        
-                        <div class="metric">
-                            <div class="metric-circle" data-percent="90">
-                                <svg viewBox="0 0 36 36">
-                                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                        fill="none" stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100"/>
-                                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                        fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="90, 100" stroke-linecap="round"/>
-                                </svg>
-                                <span class="metric-value">90%</span>
-                            </div>
-                            <div class="metric-label">Revenue Potential</div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-action">
-                        <a href="#" class="action-btn" target="_blank">
-                            <span>View Investment Memo</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- FPL Analytics Engine -->
-            <article class="expandable-card" data-project="fpl">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-tag">Public Good · Open Source</div>
-                            <h3>FPL Analytics Engine</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand project details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="preview-text">
-                        Python-driven optimization tool analyzing Premier League gameweek patterns for ROI maximization.
-                    </p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">Python</span>
-                        <span class="tech-badge">Pandas</span>
-                        <span class="tech-badge">Scikit-learn</span>
-                    </div>
-                </div>
-                
-                <div class="card-expanded">
-                    <p><strong>Demonstrates complex data modeling capabilities applied to real-world prediction problems.</strong></p>
-                    
-                    <div class="contribution-list">
-                        <li>Novel player valuation algorithms</li>
-                        <li>Gameweek probability models</li>
-                        <li>Transfer strategy optimization</li>
-                        <li>Public dataset creation</li>
-                    </div>
-                    
-                    <div class="card-action">
-                        <a href="https://github.com/jessekipyegon/fpl-analytics" class="action-btn" target="_blank">
-                            <span>View Repository</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Freight & Fleet Management -->
-            <article class="expandable-card" data-project="freight">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-tag">On Sale · $80k Valuation</div>
-                            <h3>Freight & Fleet Management</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand project details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="preview-text">
-                        Enterprise-grade logistics platform for real-time operations, compliance, and scalability.
-                    </p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">React</span>
-                        <span class="tech-badge">Django REST</span>
-                        <span class="tech-badge">PostgreSQL</span>
-                    </div>
-                </div>
-                
-                <div class="card-expanded">
-                    <p><strong>Solves tangible pain points in Africa's growing logistics sector.</strong></p>
-                    
-                    <div class="market-stats">
-                        <div class="market-stat">
-                            <span class="stat-number">$45B+</span>
-                            <span class="stat-desc">African Logistics Market</span>
-                        </div>
-                        <div class="market-stat">
-                            <span class="stat-number">32%</span>
-                            <span class="stat-desc">Annual Growth</span>
-                        </div>
-                        <div class="market-stat">
-                            <span class="stat-number">1000+</span>
-                            <span class="stat-desc">Potential Clients</span>
-                        </div>
-                    </div>
-                    
-                    <div class="card-action">
-                        <a href="#" class="action-btn" target="_blank">
-                            <span>View Business Plan</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Monolith Engine Analyzer -->
-            <article class="expandable-card" data-project="monolith">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-tag">Intellectual Asset · Research</div>
-                            <h3>Monolith Engine Analyzer</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand project details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="preview-text">
-                        Growth simulation and optimization engine for analyzing dynamic systems under volatility.
-                    </p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">Python</span>
-                        <span class="tech-badge">React</span>
-                        <span class="tech-badge">NumPy</span>
-                    </div>
-                </div>
-                
-                <div class="card-expanded">
-                    <p><strong>Deep intellectual work in systems modeling and complex adaptive behavior prediction.</strong></p>
-                    
-                    <div class="framework-grid">
-                        <div class="framework-item">
-                            <h5>Financial Modeling</h5>
-                            <p>Portfolio growth under volatility constraints</p>
-                        </div>
-                        <div class="framework-item">
-                            <h5>Business Scaling</h5>
-                            <p>Optimal growth path identification</p>
-                        </div>
-                        <div class="framework-item">
-                            <h5>Risk Assessment</h5>
-                            <p>System failure probability under stress</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card-action">
-                        <a href="#" class="action-btn" target="_blank">
-                            <span>View White Paper</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
+    <div class="expandable-grid">
+      <!-- Cattle-as-an-Asset Platform -->
+      <article class="expandable-card" data-project="cattle">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="card-tag">On Sale · $150k Valuation</div>
+              <h3>Cattle-as-an-Asset Platform</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand project details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <p class="preview-text">
+            Fintech engine bridging traditional livestock investment with IoT tracking and M-Pesa integration.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">Django</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">IoT</span>
+          </div>
         </div>
+
+        <div class="card-expanded">
+          <p><strong>Transforming physical assets into liquid, trackable investments.</strong></p>
+
+          <div class="investment-metrics">
+            <div class="metric">
+              <div class="metric-circle" data-percent="85">
+                <svg viewBox="0 0 36 36">
+                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                    stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100" />
+                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                    stroke="var(--accent)" stroke-width="3" stroke-dasharray="85, 100" stroke-linecap="round" />
+                </svg>
+                <span class="metric-value">85%</span>
+              </div>
+              <div class="metric-label">Market Readiness</div>
+            </div>
+
+            <div class="metric">
+              <div class="metric-circle" data-percent="90">
+                <svg viewBox="0 0 36 36">
+                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                    stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100" />
+                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                    stroke="var(--accent)" stroke-width="3" stroke-dasharray="90, 100" stroke-linecap="round" />
+                </svg>
+                <span class="metric-value">90%</span>
+              </div>
+              <div class="metric-label">Revenue Potential</div>
+            </div>
+          </div>
+
+          <div class="card-action">
+            <a href="#" class="action-btn" target="_blank">
+              <span>View Investment Memo</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!--  Analytics Engine -->
+      <article class="expandable-card" data-project="fpl">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="card-tag">Public Good · Open Source</div>
+              <h3>Analytics Engine</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand project details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <p class="preview-text">
+            Python-driven optimization tool analyzing Premier League gameweek patterns for ROI maximization.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Pandas</span>
+            <span class="tech-badge">Scikit-learn</span>
+          </div>
+        </div>
+
+        <div class="card-expanded">
+          <p><strong>Demonstrates complex data modeling capabilities applied to real-world prediction problems.</strong>
+          </p>
+
+          <div class="contribution-list">
+            <li>Novel player valuation algorithms</li>
+            <li>Gameweek probability models</li>
+            <li>Transfer strategy optimization</li>
+            <li>Public dataset creation</li>
+          </div>
+
+          <div class="card-action">
+            <a href="https://github.com/jessekipyegon/fpl-analytics" class="action-btn" target="_blank">
+              <span>View Repository</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Freight & Fleet Management -->
+      <article class="expandable-card" data-project="freight">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="card-tag">On Sale · $80k Valuation</div>
+              <h3>Freight & Fleet Management</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand project details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <p class="preview-text">
+            Enterprise-grade logistics platform for real-time operations, compliance, and scalability.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Django REST</span>
+            <span class="tech-badge">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="card-expanded">
+          <p><strong>Solves tangible pain points in Africa's growing logistics sector.</strong></p>
+
+          <div class="market-stats">
+            <div class="market-stat">
+              <span class="stat-number">$45B+</span>
+              <span class="stat-desc">African Logistics Market</span>
+            </div>
+            <div class="market-stat">
+              <span class="stat-number">32%</span>
+              <span class="stat-desc">Annual Growth</span>
+            </div>
+            <div class="market-stat">
+              <span class="stat-number">1000+</span>
+              <span class="stat-desc">Potential Clients</span>
+            </div>
+          </div>
+
+          <div class="card-action">
+            <a href="#" class="action-btn" target="_blank">
+              <span>View Business Plan</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Monolith Engine Analyzer -->
+      <article class="expandable-card" data-project="monolith">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="card-tag">Intellectual Asset · Research</div>
+              <h3>Monolith Engine Analyzer</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand project details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <p class="preview-text">
+            Growth simulation and optimization engine for analyzing dynamic systems under volatility.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">NumPy</span>
+          </div>
+        </div>
+
+        <div class="card-expanded">
+          <p><strong>Deep intellectual work in systems modeling and complex adaptive behavior prediction.</strong></p>
+
+          <div class="framework-grid">
+            <div class="framework-item">
+              <h5>Financial Modeling</h5>
+              <p>Portfolio growth under volatility constraints</p>
+            </div>
+            <div class="framework-item">
+              <h5>Business Scaling</h5>
+              <p>Optimal growth path identification</p>
+            </div>
+            <div class="framework-item">
+              <h5>Risk Assessment</h5>
+              <p>System failure probability under stress</p>
+            </div>
+          </div>
+
+          <div class="card-action">
+            <a href="#" class="action-btn" target="_blank">
+              <span>View White Paper</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
     </div>
+  </div>
 </section>
 
 <section id="manifesto">
-    <div class="glass-card reveal-item">
-        <div class="manifesto-header">
-            <span class="manifesto-badge">Serial Entrepreneur's Purpose</span>
-            <h2 class="manifesto-title">The Architecture of Creation</h2>
-            <p class="manifesto-subtitle">
-                My principled approach to building what matters—from first principles to final economics
-            </p>
+  <div class="glass-card reveal-item">
+    <div class="manifesto-header">
+      <span class="manifesto-badge">Serial Entrepreneur's Purpose</span>
+      <h2 class="manifesto-title">The Architecture of Creation</h2>
+      <p class="manifesto-subtitle">
+        My principled approach to building what matters—from first principles to final economics
+      </p>
+    </div>
+
+    <div class="expandable-grid">
+      <!-- Genesis Card -->
+      <article class="expandable-card manifesto-card" data-principle="genesis">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="principle-number">01</div>
+              <h3>Genesis: Purpose over Production</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand principle details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <p class="preview-text">
+            I do not build for the sake of adding noise to the world. Every project hsa a Purpose
+          </p>
         </div>
 
-        <div class="expandable-grid">
-            <!-- Genesis Card -->
-            <article class="expandable-card manifesto-card" data-principle="genesis">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="principle-number">01</div>
-                            <h3>Genesis: Purpose over Production</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand principle details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="preview-text">
-                        I do not build for the sake of adding noise to the world. Every project hsa a Purpose
-                    </p>
-                </div>
-                
-                <div class="card-expanded">
-                    <blockquote class="core-quote">
-                        "My Enterprises are nearly out of business all the time.
-                    </blockquote>
-                    
-                    <p>True impact isn't found in forced effort, but in the precision of the fit between solution and environment.</p>
-                    
-                    <div class="capability-grid">
-                        <div class="capability">
-                            <h5>Orchestrate from scratch</h5>
-                            <p>Most of my foundation determines the ceiling—I build systems from first principles.</p>
-                        </div>
-                        <div class="capability">
-                            <h5>Purpose-driven architecture</h5>
-                            <p>Whether public sale, private utility, or ecosystem—clarity precedes execution.</p>
-                        </div>
-                    </div>
-                </div>
-            </article>
+        <div class="card-expanded">
+          <blockquote class="core-quote">
+            "My Enterprises are nearly out of business all the time.
+          </blockquote>
 
-            <!-- Innovation Card -->
-            <article class="expandable-card manifesto-card" data-principle="innovation">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="principle-number">02</div>
-                            <h3>The Cycle of Innovation</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand principle details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="preview-text">
-                        My journey is fueled by a relentless enthusiasm for the "New"—not as distraction, but as discipline.
-                    </p>
-                </div>
-                
-                <div class="card-expanded">
-                    <div class="cycle-triangle">
-                        <!-- Top Node: Exploration -->
-                        <div class="cycle-node" data-stage="exploration">
-                            <div class="node-circle">
-                                <div class="node-icon">🔍</div>
-                            </div>
-                            <div class="node-content">
-                                <h4 class="node-title">Exploration</h4>
-                                <p class="node-description">Raw hunger to understand new domains</p>
-                            </div>
-                            <div class="connection-line top-left"></div>
-                            <div class="connection-line top-right"></div>
-                        </div>
-                        
-                        <!-- Bottom Left Node: Experimentation -->
-                        <div class="cycle-node" data-stage="experimentation">
-                            <div class="node-circle">
-                                <div class="node-icon">🧪</div>
-                            </div>
-                            <div class="node-content">
-                                <h4 class="node-title">Experimentation</h4>
-                                <p class="node-description">Turning curiosity into tangible tests</p>
-                            </div>
-                            <div class="connection-line bottom-left"></div>
-                            <div class="connection-line left-up"></div>
-                        </div>
-                        
-                        <!-- Bottom Right Node: Innovation -->
-                        <div class="cycle-node" data-stage="innovation">
-                            <div class="node-circle">
-                                <div class="node-icon">✨</div>
-                            </div>
-                            <div class="node-content">
-                                <h4 class="node-title">Innovation</h4>
-                                <p class="node-description">The rare, refined result of experiments</p>
-                            </div>
-                            <div class="connection-line bottom-right"></div>
-                            <div class="connection-line right-up"></div>
-                        </div>
-                        
-                        <!-- Center Connection Hub -->
-                        <div class="cycle-center">
-                            <div class="center-circle">
-                                <svg width="60" height="60" viewBox="0 0 60 60">
-                                    <circle cx="30" cy="30" r="28" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.3"/>
-                                    <path d="M30,2 a28,28 0 1,1 0,56 a28,28 0 1,1 0,-56" 
-                                          fill="none" 
-                                          stroke="var(--accent)" 
-                                          stroke-width="3" 
-                                          stroke-linecap="round"
-                                          stroke-dasharray="176, 176"
-                                          style="animation: rotate 8s linear infinite; transform-origin: 30px 30px;"/>
-                                </svg>
-                                <div class="cycle-label">The Process</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Animated flow indicator -->
-                        <div class="flow-indicator">
-                            <div class="flow-dot" style="animation-delay: 0s;"></div>
-                            <div class="flow-dot" style="animation-delay: 0.5s;"></div>
-                            <div class="flow-dot" style="animation-delay: 1s;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="insight-card">
-                        <span class="insight-tag">Radical Honesty</span>
-                        <h4>Strategic Cannibalization</h4>
-                        <p>"To innovate, you must be willing to kill yesterday's good idea to make room for today's great one."</p>
-                    </div>
-                </div>
-            </article>
+          <p>True impact isn't found in forced effort, but in the precision of the fit between solution and environment.
+          </p>
 
-            <!-- Culture Card -->
-            <article class="expandable-card manifesto-card" data-principle="culture">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="principle-number">03</div>
-                            <h3>Culture as a Product</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand principle details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="preview-text">
-                        I don't just build products; Make money | Raise money.
-                    </p>
-                </div>
-                
-                <div class="card-expanded">
-                    <blockquote class="core-quote">
-                        "I don't just fail ; I fail quickly and change course."
-                    </blockquote>
-                    
-                    <p>Orchestration involves organizing human energy into a cohesive rhythm. Dealing with multiple products requires a "modular" mind—the ability to switch contexts without losing core values.</p>
-                    
-                    <div class="capability-grid">
-                        <div class="capability">
-                            <h5>Orchestration</h5>
-                            <p>Organizing human energy into a cohesive rhythm</p>
-                        </div>
-                        <div class="capability">
-                            <h5>Context Switching</h5>
-                            <p>Managing multiple products without losing core values</p>
-                        </div>
-                        <div class="capability">
-                            <h5>Brand Architecture</h5>
-                            <p>Excellence and transparency as foundational pillars</p>
-                        </div>
-                    </div>
-                </div>
-            </article>
+          <div class="capability-grid">
+            <div class="capability">
+              <h5>Orchestrate from scratch</h5>
+              <p>Most of my foundation determines the ceiling—I build systems from first principles.</p>
+            </div>
+            <div class="capability">
+              <h5>Purpose-driven architecture</h5>
+              <p>Whether public sale, private utility, or ecosystem—clarity precedes execution.</p>
+            </div>
+          </div>
+        </div>
+      </article>
 
-            <!-- Economics Card -->
-            <article class="expandable-card manifesto-card" data-principle="economics">
-                <div class="card-preview">
-                    <div class="card-header">
-                        <div>
-                            <div class="principle-number">04</div>
-                            <h3>Guardrail</h3>
-                        </div>
-                        <button class="expand-toggle" aria-label="Expand principle details">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <!-- <p class="preview-text">
+      <!-- Innovation Card -->
+      <article class="expandable-card manifesto-card" data-principle="innovation">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="principle-number">02</div>
+              <h3>The Cycle of Innovation</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand principle details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <p class="preview-text">
+            My journey is fueled by a relentless enthusiasm for the "New"—not as distraction, but as discipline.
+          </p>
+        </div>
+
+        <div class="card-expanded">
+          <div class="cycle-triangle">
+            <!-- Top Node: Exploration -->
+            <div class="cycle-node" data-stage="exploration">
+              <div class="node-circle">
+                <div class="node-icon">🔍</div>
+              </div>
+              <div class="node-content">
+                <h4 class="node-title">Exploration</h4>
+                <p class="node-description">Raw hunger to understand new domains</p>
+              </div>
+              <div class="connection-line top-left"></div>
+              <div class="connection-line top-right"></div>
+            </div>
+
+            <!-- Bottom Left Node: Experimentation -->
+            <div class="cycle-node" data-stage="experimentation">
+              <div class="node-circle">
+                <div class="node-icon">🧪</div>
+              </div>
+              <div class="node-content">
+                <h4 class="node-title">Experimentation</h4>
+                <p class="node-description">Turning curiosity into tangible tests</p>
+              </div>
+              <div class="connection-line bottom-left"></div>
+              <div class="connection-line left-up"></div>
+            </div>
+
+            <!-- Bottom Right Node: Innovation -->
+            <div class="cycle-node" data-stage="innovation">
+              <div class="node-circle">
+                <div class="node-icon">✨</div>
+              </div>
+              <div class="node-content">
+                <h4 class="node-title">Innovation</h4>
+                <p class="node-description">The rare, refined result of experiments</p>
+              </div>
+              <div class="connection-line bottom-right"></div>
+              <div class="connection-line right-up"></div>
+            </div>
+
+            <!-- Center Connection Hub -->
+            <div class="cycle-center">
+              <div class="center-circle">
+                <svg width="60" height="60" viewBox="0 0 60 60">
+                  <circle cx="30" cy="30" r="28" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.3" />
+                  <path d="M30,2 a28,28 0 1,1 0,56 a28,28 0 1,1 0,-56" fill="none" stroke="var(--accent)"
+                    stroke-width="3" stroke-linecap="round" stroke-dasharray="176, 176"
+                    style="animation: rotate 8s linear infinite; transform-origin: 30px 30px;" />
+                </svg>
+                <div class="cycle-label">The Process</div>
+              </div>
+            </div>
+
+            <!-- Animated flow indicator -->
+            <div class="flow-indicator">
+              <div class="flow-dot" style="animation-delay: 0s;"></div>
+              <div class="flow-dot" style="animation-delay: 0.5s;"></div>
+              <div class="flow-dot" style="animation-delay: 1s;"></div>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <span class="insight-tag">Radical Honesty</span>
+            <h4>Strategic Cannibalization</h4>
+            <p>"To innovate, you must be willing to kill yesterday's good idea to make room for today's great one."</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Culture Card -->
+      <article class="expandable-card manifesto-card" data-principle="culture">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="principle-number">03</div>
+              <h3>Culture as a Product</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand principle details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <p class="preview-text">
+            I don't just build products; Make money | Raise money.
+          </p>
+        </div>
+
+        <div class="card-expanded">
+          <blockquote class="core-quote">
+            "I don't just fail ; I fail quickly and change course."
+          </blockquote>
+
+          <p>Orchestration involves organizing human energy into a cohesive rhythm. Dealing with multiple products
+            requires a "modular" mind—the ability to switch contexts without losing core values.</p>
+
+          <div class="capability-grid">
+            <div class="capability">
+              <h5>Orchestration</h5>
+              <p>Organizing human energy into a cohesive rhythm</p>
+            </div>
+            <div class="capability">
+              <h5>Context Switching</h5>
+              <p>Managing multiple products without losing core values</p>
+            </div>
+            <div class="capability">
+              <h5>Brand Architecture</h5>
+              <p>Excellence and transparency as foundational pillars</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Economics Card -->
+      <article class="expandable-card manifesto-card" data-principle="economics">
+        <div class="card-preview">
+          <div class="card-header">
+            <div>
+              <div class="principle-number">04</div>
+              <h3>Guardrail</h3>
+            </div>
+            <button class="expand-toggle" aria-label="Expand principle details">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <!-- <p class="preview-text">
                         The opportunity to build a project at terrible economics is a trap, not a triumph.
                     </p> -->
-                </div>
-                
-                <div class="card-expanded">
-                    <blockquote class="warning-quote">
-                        "The opportunity to build a project at terrible economics is a trap, not a triumph."
-                    </blockquote>
-                    
-                    <p>While I am an explorer, I am also a realist. A project that cannot sustain itself eventually drains the creative spirit. I focus on building things that are not only technologically sound but economically "anti-fragile."</p>
-                    
-                    <div class="sustainability-meter">
-                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
-                            <span>Creative Spirit</span>
-                            <span>Economic Reality</span>
-                        </div>
-                        <div class="meter-bar">
-                            <div class="meter-fill"></div>
-                        </div>
-                        <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
-                            Optimal balance: 65% innovation, 35% economics
-                        </div>
-                    </div>
-                </div>
-            </article>
         </div>
+
+        <div class="card-expanded">
+          <blockquote class="warning-quote">
+            "The opportunity to build a project at terrible economics is a trap, not a triumph."
+          </blockquote>
+
+          <p>While I am an explorer, I am also a realist. A project that cannot sustain itself eventually drains the
+            creative spirit. I focus on building things that are not only technologically sound but economically
+            "anti-fragile."</p>
+
+          <div class="sustainability-meter">
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem;">
+              <span>Creative Spirit</span>
+              <span>Economic Reality</span>
+            </div>
+            <div class="meter-bar">
+              <div class="meter-fill"></div>
+            </div>
+            <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Optimal balance: 65% innovation, 35% economics
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
+  </div>
 </section>
 
 <section id="about">
-    <div class="glass-card reveal-item">
-        <header class="section-header" style="text-align: left; margin-bottom: 3rem;">
-            <span class="kicker">Partnership & Synergy</span>
-            <h2>Why build with me?</h2>
-            <p style="max-width: 600px;">
-                I don't just join teams; I align with visions. I believe that engineering is a tool for 
-                <strong style="color: var(--accent-bright);">economic leverage</strong>, and the best systems are those that stay out of the way 
-                of growth.
-            </p>
-        </header>
-        
-        <div class="expandable-grid">
-            <div class="expandable-card">
-                <div class="card-visible-part">
-                    <div class="pillar-icon">🧩</div>
-                    <h3>Modular Architecture</h3>
-                    <p class="summary">Ensuring your system is an asset, not a liability.</p>
-                    <div class="expand-hint">Click to see the strategy <span>↓</span></div>
-                </div>
-                <div class="card-hidden-part">
-                    <div class="reveal-wrapper">
-                        <p>I design with <strong>explicit data flows</strong> and strict interfaces. This means when your business pivots, your code doesn't break—it adapts. We build independent components that are testable, replaceable, and ready for 2027 and beyond.</p>
-                    </div>
-                </div>
-            </div>
+  <div class="glass-card reveal-item">
+    <header class="section-header" style="text-align: left; margin-bottom: 3rem;">
+      <span class="kicker">Partnership & Synergy</span>
+      <h2>Why build with me?</h2>
+      <p style="max-width: 600px;">
+        I don't just join teams; I align with visions. I believe that engineering is a tool for
+        <strong style="color: var(--accent-bright);">economic leverage</strong>, and the best systems are those that
+        stay out of the way
+        of growth.
+      </p>
+    </header>
 
-            <div class="expandable-card">
-                <div class="card-visible-part">
-                    <div class="pillar-icon">💎</div>
-                    <h3>Clarity-First Development</h3>
-                    <p class="summary">Reducing the "Complexity Tax" on every feature.</p>
-                    <div class="expand-hint">Click to see the strategy <span>↓</span></div>
-                </div>
-                <div class="card-hidden-part">
-                    <div class="reveal-wrapper">
-                        <p>Complexity is the silent killer of startups. I prioritize <strong>human-readable logic</strong> over "clever" code. By keeping the core purpose visible, we ensure that new team members can onboard in days, not weeks, scaling naturally without the friction of technical debt.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="expandable-card">
-                <div class="card-visible-part">
-                    <div class="pillar-icon">🎯</div>
-                    <h3>Strategic Execution</h3>
-                    <p class="summary">Engineering excellence meets commercial viability.</p>
-                    <div class="expand-hint">Click to see the strategy <span>↓</span></div>
-                </div>
-                <div class="card-hidden-part">
-                    <div class="reveal-wrapper">
-                        <p>Every technical decision is an investment. I bridge the gap between "perfect code" and "market timing." I strongly believe that <strong>building at terrible economics is a trap</strong>—I focus on anti-fragile solutions that respect your mission's budget and timeline.</p>
-                    </div>
-                </div>
-            </div>
+    <div class="expandable-grid">
+      <div class="expandable-card">
+        <div class="card-visible-part">
+          <div class="pillar-icon">🧩</div>
+          <h3>Modular Architecture</h3>
+          <p class="summary">Ensuring your system is an asset, not a liability.</p>
+          <div class="expand-hint">Click to see the strategy <span>↓</span></div>
         </div>
-
-        <div class="about-footer" style="margin-top: 3rem; text-align: center; font-style: italic; color: var(--text-muted);">
-            <p>"I am looking for the intersection where your complex problem meets my architectural discipline."</p>
+        <div class="card-hidden-part">
+          <div class="reveal-wrapper">
+            <p>I design with <strong>explicit data flows</strong> and strict interfaces. This means when your business
+              pivots, your code doesn't break—it adapts. We build independent components that are testable, replaceable,
+              and ready for 2027 and beyond.</p>
+          </div>
         </div>
+      </div>
+
+      <div class="expandable-card">
+        <div class="card-visible-part">
+          <div class="pillar-icon">💎</div>
+          <h3>Clarity-First Development</h3>
+          <p class="summary">Reducing the "Complexity Tax" on every feature.</p>
+          <div class="expand-hint">Click to see the strategy <span>↓</span></div>
+        </div>
+        <div class="card-hidden-part">
+          <div class="reveal-wrapper">
+            <p>Complexity is the silent killer of startups. I prioritize <strong>human-readable logic</strong> over
+              "clever" code. By keeping the core purpose visible, we ensure that new team members can onboard in days,
+              not weeks, scaling naturally without the friction of technical debt.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="expandable-card">
+        <div class="card-visible-part">
+          <div class="pillar-icon">🎯</div>
+          <h3>Strategic Execution</h3>
+          <p class="summary">Engineering excellence meets commercial viability.</p>
+          <div class="expand-hint">Click to see the strategy <span>↓</span></div>
+        </div>
+        <div class="card-hidden-part">
+          <div class="reveal-wrapper">
+            <p>Every technical decision is an investment. I bridge the gap between "perfect code" and "market timing." I
+              strongly believe that <strong>building at terrible economics is a trap</strong>—I focus on anti-fragile
+              solutions that respect your mission's budget and timeline.</p>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="about-footer"
+      style="margin-top: 3rem; text-align: center; font-style: italic; color: var(--text-muted);">
+      <p>"I am looking for the intersection where your complex problem meets my architectural discipline."</p>
+    </div>
+  </div>
 </section>
 
 <section id="contact">
-    <div class="glass-card reveal-item">
-        <header class="section-header">
-            <h2>Initiate Connection</h2>
-            <p>Direct channels for strategic collaboration.</p>
-        </header>
+  <div class="glass-card reveal-item">
+    <header class="section-header">
+      <h2>Initiate Connection</h2>
+      <p>Direct channels for strategic collaboration.</p>
+    </header>
 
-        <div class="contact-links">
-            <a href="mailto:hello@ngenojesse@gmail.com" class="contact-link"><span>Email</span></a>
-            <a href="https://www.linkedin.com/in/jessey-nge-no-5a98011a2/" class="contact-link"><span>LinkedIn</span></a>
-            <a href="https://github.com/jESsEY7" class="contact-link"><span>GitHub</span></a>
-            <a href="{% static 'Jesse_Kipyegon_Resume_3.pdf' %}" class="contact-link primary"><span>Resume</span></a>
-        </div>
+    <div class="contact-links">
+      <a href="mailto:hello@ngenojesse@gmail.com" class="contact-link"><span>Email</span></a>
+      <a href="https://www.linkedin.com/in/jessey-nge-no-5a98011a2/" class="contact-link"><span>LinkedIn</span></a>
+      <a href="https://github.com/jESsEY7" class="contact-link"><span>GitHub</span></a>
+      <a href="{% static 'Jesse_Kipyegon_Resume_3.pdf' %}" class="contact-link primary"><span>Resume</span></a>
     </div>
+  </div>
 </section>
 
 <footer>
-    <nav>
-        <a href="#intro">Home</a>
-        <a href="#projects">Publications</a>
-        <a href="#manifesto">Manifesto</a>
-        <a href="#about">Bio</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <p>© 2026 JESSE KIPYEGON · NAIROBI, KENYA</p>
+  <nav>
+    <a href="#intro">Home</a>
+    <a href="#projects">Publications</a>
+    <a href="#manifesto">Purpose</a>
+    <a href="#about">Bio</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <p>© 2026 JESSE KIPYEGON · NAIROBI, KENYA</p>
 </footer>
 {% endblock content %}
 
 {% block extra_js %}
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const axis = document.getElementById('world-axis');
-        const items = document.querySelectorAll(".reveal-item");
-        const nav = document.getElementById('mainNav');
-        const navLinks = document.querySelectorAll('.nav-links a');
-        let lastScrollY = window.scrollY;
-        let accumulatedRotation = 0;
-        let ticking = false;
+  document.addEventListener("DOMContentLoaded", () => {
+    const axis = document.getElementById('world-axis');
+    const items = document.querySelectorAll(".reveal-item");
+    const nav = document.getElementById('mainNav');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    let lastScrollY = window.scrollY;
+    let accumulatedRotation = 0;
+    let ticking = false;
 
-        // 1. NAVIGATION SCROLL EFFECT
-        function updateNav() {
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+    // 1. NAVIGATION SCROLL EFFECT
+    function updateNav() {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }
+
+    // 2. ACTIVE NAV LINK BASED ON SCROLL POSITION
+    function updateActiveNav() {
+      let current = '';
+      const sections = document.querySelectorAll('section');
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
         }
+      });
 
-        // 2. ACTIVE NAV LINK BASED ON SCROLL POSITION
-        function updateActiveNav() {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === current) {
+          link.classList.add('active');
         }
+      });
+    }
 
-        // 3. VELOCITY-BASED DIRECTIONAL ROTATION ENGINE
-        function updateGlobe() {
-            const currentScrollY = window.scrollY;
-            const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollFraction = Math.min(currentScrollY / scrollMax, 1);
+    // 3. VELOCITY-BASED DIRECTIONAL ROTATION ENGINE
+    function updateGlobe() {
+      const currentScrollY = window.scrollY;
+      const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollFraction = Math.min(currentScrollY / scrollMax, 1);
 
-            const delta = currentScrollY - lastScrollY;
-            accumulatedRotation += delta * 0.12; 
-            
-            const tilt = 65 - (scrollFraction * 20);
-            const zoom = 1 + (scrollFraction * 0.4);
+      const delta = currentScrollY - lastScrollY;
+      accumulatedRotation += delta * 0.12;
 
-            axis.style.transform = 
-                `translate(-50%, -50%) rotateX(${tilt}deg) rotateZ(${accumulatedRotation}deg) scale(${zoom})`;
-            
-            lastScrollY = currentScrollY;
-            ticking = false;
-        }
+      const tilt = 65 - (scrollFraction * 20);
+      const zoom = 1 + (scrollFraction * 0.4);
 
-        // 4. SMOOTH SCROLL FOR NAV LINKS
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                if (targetId.startsWith('#')) {
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
+      axis.style.transform =
+        `translate(-50%, -50%) rotateX(${tilt}deg) rotateZ(${accumulatedRotation}deg) scale(${zoom})`;
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    // 4. SMOOTH SCROLL FOR NAV LINKS
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        if (targetId.startsWith('#')) {
+          const targetSection = document.querySelector(targetId);
+          if (targetSection) {
+            window.scrollTo({
+              top: targetSection.offsetTop - 80,
+              behavior: 'smooth'
             });
-        });
-
-        // 5. EXPANDABLE CARDS (PUBLICATIONS & MANIFESTO)
-        const expandableCards = document.querySelectorAll('#projects .expandable-card, #manifesto .expandable-card');
-        let currentlyExpanded = null;
-        
-        function toggleCard(card) {
-            const isExpanding = !card.classList.contains('expanded');
-            
-            // Close previously expanded card
-            if (currentlyExpanded && currentlyExpanded !== card) {
-                currentlyExpanded.classList.remove('expanded');
-            }
-            
-            // Toggle current card
-            card.classList.toggle('expanded');
-            currentlyExpanded = isExpanding ? card : null;
-            
-            // Animate metric circles when expanded
-            if (isExpanding) {
-                setTimeout(() => {
-                    animateMetricCircles(card);
-                }, 300);
-            }
+          }
         }
-        
-        expandableCards.forEach(card => {
-            const toggleBtn = card.querySelector('.expand-toggle');
-            card.addEventListener('click', (e) => {
-                if (!e.target.closest('.action-btn') && !e.target.closest('a')) {
-                    toggleCard(card);
-                }
-            });
-            
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    toggleCard(card);
-                });
-            }
-        });
-
-        // 6. EXPANDABLE CARDS FOR "WHY BUILD WITH ME?" SECTION
-        const aboutCards = document.querySelectorAll('#about .expandable-card');
-        
-        aboutCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Don't toggle if clicking on a link
-                if (e.target.tagName === 'A') return;
-                
-                // Toggle active class on clicked card
-                card.classList.toggle('active');
-            });
-        });
-
-        // 7. ANIMATE METRIC CIRCLES
-        function animateMetricCircles(container = document) {
-            const circles = container.querySelectorAll('.metric-circle');
-            
-            circles.forEach(circle => {
-                const percent = circle.dataset.percent;
-                const path = circle.querySelector('svg path:last-child');
-                if (path) {
-                    path.style.animation = 'circle-fill 1s ease-out forwards';
-                }
-            });
-        }
-
-        // 8. REVEAL ANIMATION ON SCROLL
-        function revealItems() {
-            items.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    item.classList.add('is-revealed');
-                }
-            });
-        }
-
-        // 9. SCROLL EVENT HANDLER
-        function onScroll() {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    updateNav();
-                    updateActiveNav();
-                    updateGlobe();
-                    revealItems();
-                });
-                ticking = true;
-            }
-        }
-
-        // Initialize
-        updateNav();
-        updateActiveNav();
-        revealItems();
-
-        // Event Listeners
-        window.addEventListener('scroll', onScroll);
-
-        // Initialize flow dots
-        const flowDots = document.querySelectorAll('.flow-dot');
-        flowDots.forEach((dot, index) => {
-            dot.style.animationDelay = `${index * 0.5}s`;
-        });
+      });
     });
+
+    // 5. EXPANDABLE CARDS (PUBLICATIONS & MANIFESTO)
+    const expandableCards = document.querySelectorAll('#projects .expandable-card, #manifesto .expandable-card');
+    let currentlyExpanded = null;
+
+    function toggleCard(card) {
+      const isExpanding = !card.classList.contains('expanded');
+
+      // Close previously expanded card
+      if (currentlyExpanded && currentlyExpanded !== card) {
+        currentlyExpanded.classList.remove('expanded');
+      }
+
+      // Toggle current card
+      card.classList.toggle('expanded');
+      currentlyExpanded = isExpanding ? card : null;
+
+      // Animate metric circles when expanded
+      if (isExpanding) {
+        setTimeout(() => {
+          animateMetricCircles(card);
+        }, 300);
+      }
+    }
+
+    expandableCards.forEach(card => {
+      const toggleBtn = card.querySelector('.expand-toggle');
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('.action-btn') && !e.target.closest('a')) {
+          toggleCard(card);
+        }
+      });
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleCard(card);
+        });
+      }
+    });
+
+    // 6. EXPANDABLE CARDS FOR "WHY BUILD WITH ME?" SECTION
+    const aboutCards = document.querySelectorAll('#about .expandable-card');
+
+    aboutCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Don't toggle if clicking on a link
+        if (e.target.tagName === 'A') return;
+
+        // Toggle active class on clicked card
+        card.classList.toggle('active');
+      });
+    });
+
+    // 7. ANIMATE METRIC CIRCLES
+    function animateMetricCircles(container = document) {
+      const circles = container.querySelectorAll('.metric-circle');
+
+      circles.forEach(circle => {
+        const percent = circle.dataset.percent;
+        const path = circle.querySelector('svg path:last-child');
+        if (path) {
+          path.style.animation = 'circle-fill 1s ease-out forwards';
+        }
+      });
+    }
+
+    // 8. REVEAL ANIMATION ON SCROLL
+    function revealItems() {
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          item.classList.add('is-revealed');
+        }
+      });
+    }
+
+    // 9. SCROLL EVENT HANDLER
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateNav();
+          updateActiveNav();
+          updateGlobe();
+          revealItems();
+        });
+        ticking = true;
+      }
+    }
+
+    // Initialize
+    updateNav();
+    updateActiveNav();
+    revealItems();
+
+    // Event Listeners
+    window.addEventListener('scroll', onScroll);
+
+    // Initialize flow dots
+    const flowDots = document.querySelectorAll('.flow-dot');
+    flowDots.forEach((dot, index) => {
+      dot.style.animationDelay = `${index * 0.5}s`;
+    });
+  });
 </script>
 {% endblock extra_js %}
