@@ -3,3 +3,4 @@ wagtail>=7.2,<7.3
 gunicorn
 whitenoise
 wagtail-bakery
+setuptools>=65.0.0
