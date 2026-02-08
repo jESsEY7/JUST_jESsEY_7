@@ -1438,6 +1438,210 @@
     }
   }
 
+  /* --- PUBLICATIONS CAROUSEL --- */
+  .publications-carousel-container {
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 0 4rem;
+  }
+
+  .publications-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 1rem;
+  }
+
+  .publications-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .publications-carousel .expandable-card {
+    min-width: 380px;
+    max-width: 380px;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+
+  .carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    color: var(--accent-bright);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--ease-out);
+    z-index: 10;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-nav-btn:hover {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: var(--accent);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
+  }
+
+  .carousel-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .carousel-nav-btn.prev {
+    left: 0;
+  }
+
+  .carousel-nav-btn.next {
+    right: 0;
+  }
+
+  .carousel-nav-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Portfolio tiers styling */
+  .portfolio-tiers {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .tier-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .tier-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent);
+    transform: translateX(8px);
+  }
+
+  .tier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .tier-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.25rem;
+  }
+
+  .tier-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-bright);
+    white-space: nowrap;
+  }
+
+  .tier-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .tier-features li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .tier-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .tier-tech {
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-top: 0.75rem;
+    font-weight: 500;
+  }
+
+  .tier-timeline {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    opacity: 0.8;
+  }
+
+  .comparison-table {
+    margin: 1.5rem 0;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .comparison-table th {
+    color: var(--accent-bright);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .comparison-table td {
+    color: var(--text-muted);
+  }
+
+  .recurring-note {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .recurring-note strong {
+    color: var(--accent-bright);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
   /* --- RESPONSIVE --- */
   @media (max-width: 768px) {
     .main-nav {
@@ -1605,6 +1809,26 @@
         top: 30px;
         left: 50%;
       }
+    }
+
+    /* Carousel responsive */
+    .publications-carousel-container {
+      padding: 0 3rem;
+    }
+
+    .carousel-nav-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    .carousel-nav-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .publications-carousel .expandable-card {
+      min-width: 320px;
+      max-width: 320px;
     }
   }
 
@@ -2011,230 +2235,438 @@
       </p>
     </header>
 
-    <div class="expandable-grid">
-      <!-- Cattle-as-an-Asset Platform -->
-      <article class="expandable-card" data-project="cattle">
-        <div class="card-preview">
-          <div class="card-header">
-            <div>
-              <div class="card-tag">On Sale · $50k Valuation</div>
-              <h3>Cattle-as-an-Asset Platform</h3>
-            </div>
-            <button class="expand-toggle" aria-label="Expand project details">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-          <p class="preview-text">
-            Fintech engine bridging traditional livestock investment with IoT tracking and M-Pesa integration.
-          </p>
-          <div class="tech-stack">
-            <span class="tech-badge">Django</span>
-            <span class="tech-badge">PostgreSQL</span>
-            <span class="tech-badge">IoT</span>
-          </div>
-        </div>
+    <div class="publications-carousel-container">
+      <!-- Previous Button -->
+      <button class="carousel-nav-btn prev" id="carousel-prev" aria-label="Previous publication">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
 
-        <div class="card-expanded">
-          <p><strong>Transforming physical assets into liquid, trackable investments.</strong></p>
-
-          <div class="investment-metrics">
-            <div class="metric">
-              <div class="metric-circle" data-percent="85">
-                <svg viewBox="0 0 36 36">
-                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
-                    stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100" />
-                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
-                    stroke="var(--accent)" stroke-width="3" stroke-dasharray="85, 100" stroke-linecap="round" />
-                </svg>
-                <span class="metric-value">85%</span>
+      <!-- Carousel -->
+      <div class="publications-carousel" id="publications-carousel">
+        <!-- Car Barzaar Card -->
+        <article class="expandable-card" data-project="car-barzaar">
+          <div class="card-preview">
+            <div class="card-header">
+              <div>
+                <div class="card-tag">Marketplace · Live</div>
+                <h3>Car Barzaar</h3>
               </div>
-              <div class="metric-label">Market Readiness</div>
-            </div>
-
-            <div class="metric">
-              <div class="metric-circle" data-percent="90">
-                <svg viewBox="0 0 36 36">
-                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
-                    stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100" />
-                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
-                    stroke="var(--accent)" stroke-width="3" stroke-dasharray="90, 100" stroke-linecap="round" />
+              <button class="expand-toggle" aria-label="Expand project details">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 9l-7 7-7-7" />
                 </svg>
-                <span class="metric-value">90%</span>
+              </button>
+            </div>
+            <p class="preview-text">
+              Your destination for quality vehicles. Browse, compare, and find your perfect car.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-badge">Automotive</span>
+              <span class="tech-badge">Marketplace</span>
+              <span class="tech-badge">Kenya</span>
+            </div>
+          </div>
+
+          <div class="card-expanded">
+            <p><strong>Connecting buyers and sellers in Kenya's automotive market.</strong></p>
+
+            <ul class="contribution-list">
+              <li>Wide selection of verified vehicles</li>
+              <li>Competitive pricing and financing options</li>
+              <li>Expert automotive guidance</li>
+              <li>Trusted marketplace platform</li>
+            </ul>
+
+            <div class="card-action">
+              <a href="https://motoris.netlify.app" class="action-btn" target="_blank" rel="noopener noreferrer">
+                <span>Visit Car Barzaar</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Portfolio Creation Service Card -->
+        <article class="expandable-card" data-project="portfolio-service">
+          <div class="card-preview">
+            <div class="card-header">
+              <div>
+                <div class="card-tag">Services · Web Development</div>
+                <h3>Portfolio Creation</h3>
               </div>
-              <div class="metric-label">Revenue Potential</div>
+              <button class="expand-toggle" aria-label="Expand project details">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            <p class="preview-text">
+              Professional portfolio websites tailored to your needs. Three tiers from basic to enterprise-level custom
+              applications.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-badge">Web Design</span>
+              <span class="tech-badge">Development</span>
+              <span class="tech-badge">SEO</span>
             </div>
           </div>
 
-          <div class="card-action">
-            <button id="open-memo-cattle" class="action-btn" style="background:none; border:none; cursor:pointer;">
-              <span>View Investment Memo</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </article>
+          <div class="card-expanded">
+            <p><strong>Transform your digital presence with professionally crafted portfolio sites.</strong></p>
 
-      <!--  Analytics Engine -->
-      <article class="expandable-card" data-project="fpl">
-        <div class="card-preview">
-          <div class="card-header">
-            <div>
-              <div class="card-tag">On Sale · $20k Valuation</div>
-              <h3>Spin-Doctors</h3>
+            <div class="portfolio-tiers">
+              <!-- Tier 1 -->
+              <div class="tier-card">
+                <div class="tier-header">
+                  <div>
+                    <div class="tier-name">Tier 1: Basic Portfolio</div>
+                    <div class="tier-subtitle">The Essentials</div>
+                  </div>
+                  <div class="tier-price">KSh 10K-25K</div>
+                </div>
+                <ul class="tier-features">
+                  <li>Single-page or up to 3 simple pages</li>
+                  <li>Mobile-responsive design</li>
+                  <li>Social media integration & contact form</li>
+                  <li>Standard SEO setup</li>
+                </ul>
+                <div class="tier-tech">Tech: WordPress, Wix, or HTML/CSS</div>
+                <div class="tier-timeline">⏱ Timeline: 3-7 business days</div>
+              </div>
+
+              <!--  2 -->
+              <div class="tier-card">
+                <div class="tier-header">
+                  <div>
+                    <div class="tier-name">Tier 2: Standard Portfolio</div>
+                    <div class="tier-subtitle">The Professional</div>
+                  </div>
+                  <div class="tier-price">KSh 30K-70K</div>
+                </div>
+                <ul class="tier-features">
+                  <li>Multi-page architecture (5-6 pages)</li>
+                  <li>Filterable portfolio/gallery</li>
+                  <li>CMS training for self-management</li>
+                  <li>Enhanced performance optimization</li>
+                  <li>Google Analytics integration</li>
+                </ul>
+                <div class="tier-tech">Tech: Custom WordPress, Webflow, Elementor Pro</div>
+                <div class="tier-timeline">⏱ Timeline: 2-4 weeks</div>
+              </div>
+
+              <!-- Tier 3 -->
+              <div class="tier-card">
+                <div class="tier-header">
+                  <div>
+                    <div class="tier-name">Tier 3: Custom Web Application</div>
+                    <div class="tier-subtitle">The Enterprise</div>
+                  </div>
+                  <div class="tier-price">KSh 80K-250K+</div>
+                </div>
+                <ul class="tier-features">
+                  <li>Fully bespoke UI/UX design</li>
+                  <li>Advanced functionality (login portals, booking systems)</li>
+                  <li>Custom animations & interactions</li>
+                  <li>High-level security &SSL encryption</li>
+                  <li>API integrations (CRM, M-Pesa, etc.)</li>
+                </ul>
+                <div class="tier-tech">Tech: React.js, Next.js, Django, Laravel</div>
+                <div class="tier-timeline">⏱ Timeline: 1-3 months</div>
+              </div>
             </div>
-            <button class="expand-toggle" aria-label="Expand project details">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-          <p class="preview-text">
-            Python-driven optimization tool for managing your laundry .
-          </p>
-          <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Pandas</span>
-            <span class="tech-badge">Scikit-learn</span>
-          </div>
-        </div>
 
-        <div class="card-expanded">
-          <p><strong>Demonstrates a simple optimization tool for managing your laundry.</strong>
-          </p>
+            <!-- <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Basic</th>
+                  <th>Standard</th>
+                  <th>Custom App</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Complexity</td>
+                  <td>Low</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>Customization</td>
+                  <td>Template-based</td>
+                  <td>Modified Design</td>
+                  <td>Fully Bespoke</td>
+                </tr>
+                <tr>
+                  <td>Maintenance</td>
+                  <td>Minimal</td>
+                  <td>Moderate</td>
+                  <td>High/Specialized</td>
+                </tr>
+                <tr>
+                  <td>SEO Strength</td>
+                  <td>Basic</td>
+                  <td>Advanced</td>
+                  <td>Professional</td>
+                </tr>
+              </tbody>
+            </table> -->
 
-          <div class="contribution-list">
-            <li>Delivery service optimization</li>
-            <li>Laundry service automation</li>
-            <li>multi-modal routing</li>
-            <li>inventory management</li>
-          </div>
-
-          <div class="card-action">
-            <a href="https://github.com/jESsEY7/The_Spin_Doctors" class="action-btn" target="_blank">
-              <span>View Repository</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Freight & Fleet Management -->
-      <article class="expandable-card" data-project="freight">
-        <div class="card-preview">
-          <div class="card-header">
-            <div>
-              <div class="card-tag">On Sale · $80k Valuation</div>
-              <h3>Freight & Fleet Management</h3>
+            <div class="recurring-note">
+              <strong>💡 Recurring Costs:</strong>
+              Regardless of tier chosen, clients are responsible for annual Domain Name registration (approx. KSh
+              1,500/yr) and Web Hosting (approx. KSh 3,500 - KSh 15,000/yr depending on traffic).
             </div>
-            <button class="expand-toggle" aria-label="Expand project details">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-          <p class="preview-text">
-            Enterprise-grade logistics platform for real-time operations, compliance, and scalability.
-          </p>
-          <div class="tech-stack">
-            <span class="tech-badge">React</span>
-            <span class="tech-badge">Django REST</span>
-            <span class="tech-badge">PostgreSQL</span>
-          </div>
-        </div>
 
-        <div class="card-expanded">
-          <p><strong>Solves tangible pain points in Africa's growing logistics sector.</strong></p>
-
-          <div class="market-stats">
-            <div class="market-stat">
-              <span class="stat-number">$4M+</span>
-              <span class="stat-desc">African Logistics Market</span>
-            </div>
-            <div class="market-stat">
-              <span class="stat-number">42%</span>
-              <span class="stat-desc">Annual Growth</span>
-            </div>
-            <div class="market-stat">
-              <span class="stat-number">1000+</span>
-              <span class="stat-desc">Potential Clients</span>
+            <div class="card-action">
+              <a href="#contact" class="action-btn">
+                <span>Get Your Quote</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </a>
             </div>
           </div>
+        </article>
 
-          <div class="card-action">
-            <button id="open-plan-freight" class="action-btn" style="background:none; border:none; cursor:pointer;">
-              <span>View Business Plan</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Monolith Engine Analyzer -->
-      <article class="expandable-card" data-project="monolith">
-        <div class="card-preview">
-          <div class="card-header">
-            <div>
-              <div class="card-tag">Intellectual Asset · Research</div>
-              <h3>Monolith Engine Analyzer</h3>
+        <!-- Cattle-as-an-Asset Platform -->
+        <article class="expandable-card" data-project="cattle">
+          <div class="card-preview">
+            <div class="card-header">
+              <div>
+                <div class="card-tag">On Sale · $50k Valuation</div>
+                <h3>Cattle-as-an-Asset Platform</h3>
+              </div>
+              <button class="expand-toggle" aria-label="Expand project details">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
             </div>
-            <button class="expand-toggle" aria-label="Expand project details">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-          <p class="preview-text">
-            Growth simulation and optimization engine for analyzing dynamic systems under volatility.
-          </p>
-          <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">React</span>
-            <span class="tech-badge">NumPy</span>
-          </div>
-        </div>
-
-        <div class="card-expanded">
-          <p><strong>Deep intellectual work in systems modeling and complex adaptive behavior prediction.</strong></p>
-
-          <div class="framework-grid">
-            <div class="framework-item">
-              <h5>Financial Modeling</h5>
-              <p>Portfolio growth under volatility constraints</p>
-            </div>
-            <div class="framework-item">
-              <h5>Business Scaling</h5>
-              <p>Optimal growth path identification</p>
-            </div>
-            <div class="framework-item">
-              <h5>Risk Assessment</h5>
-              <p>System failure probability under stress</p>
+            <p class="preview-text">
+              Fintech engine bridging traditional livestock investment with IoT tracking and M-Pesa integration.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-badge">Django</span>
+              <span class="tech-badge">PostgreSQL</span>
+              <span class="tech-badge">IoT</span>
             </div>
           </div>
 
-          <div class="card-action">
-            <a href="#" class="action-btn" target="_blank">
-              <span>View White Paper</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
-              </svg>
-            </a>
+          <div class="card-expanded">
+            <p><strong>Transforming physical assets into liquid, trackable investments.</strong></p>
+
+            <div class="investment-metrics">
+              <div class="metric">
+                <div class="metric-circle" data-percent="85">
+                  <svg viewBox="0 0 36 36">
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100" />
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="var(--accent)" stroke-width="3" stroke-dasharray="85, 100" stroke-linecap="round" />
+                  </svg>
+                  <span class="metric-value">85%</span>
+                </div>
+                <div class="metric-label">Market Readiness</div>
+              </div>
+
+              <div class="metric">
+                <div class="metric-circle" data-percent="90">
+                  <svg viewBox="0 0 36 36">
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="rgba(245, 158, 11, 0.3)" stroke-width="3" stroke-dasharray="100, 100" />
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="var(--accent)" stroke-width="3" stroke-dasharray="90, 100" stroke-linecap="round" />
+                  </svg>
+                  <span class="metric-value">90%</span>
+                </div>
+                <div class="metric-label">Revenue Potential</div>
+              </div>
+            </div>
+
+            <div class="card-action">
+              <button id="open-memo-cattle" class="action-btn" style="background:none; border:none; cursor:pointer;">
+                <span>View Investment Memo</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2  h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+
+        <!--  Analytics Engine -->
+        <article class="expandable-card" data-project="fpl">
+          <div class="card-preview">
+            <div class="card-header">
+              <div>
+                <div class="card-tag">On Sale · $20k Valuation</div>
+                <h3>Spin-Doctors</h3>
+              </div>
+              <button class="expand-toggle" aria-label="Expand project details">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            <p class="preview-text">
+              Python-driven optimization tool for managing your laundry.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-badge">Python</span>
+              <span class="tech-badge">Pandas</span>
+              <span class="tech-badge">Data Analysis</span>
+            </div>
+          </div>
+
+          <div class="card-expanded">
+            <p><strong>Statistical modeling meets practical delivery.</strong></p>
+
+            <div class="market-stats">
+              <div class="market-stat">
+                <span class="stat-number">3000+</span>
+                <div class="stat-desc">Lines of optimized code</div>
+              </div>
+              <div class="market-stat">
+                <span class="stat-number">95%</span>
+                <div class="stat-desc">Prediction accuracy</div>
+              </div>
+              <div class="market-stat">
+                <span class="stat-number">50K+</span>
+                <div class="stat-desc">Historical campaigns</div>
+              </div>
+            </div>
+
+            <ul class="contribution-list">
+              <li>Multi-variable campaign analysis</li>
+              <li>Clothing risk assessment matrices</li>
+              <li>Dynamic ROI calculation Modes</li>
+              <li>Historical result tracking</li>
+            </ul>
+
+            <div class="card-action">
+              <a href="#contact" class="action-btn">
+                <span>Acquire Platform</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Freight Platform -->
+        <article class="expandable-card" data-project="freight">
+          <div class="card-preview">
+            <div class="card-header">
+              <div>
+                <div class="card-tag">Strategic Asset · Pre-Launch</div>
+                <h3>Freight Orchestration Platform</h3>
+              </div>
+              <button class="expand-toggle" aria-label="Expand project details">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            <p class="preview-text">
+              SaaS platform coordinating logistics pipelines for mid-sized African importers.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-badge">Next.js</span>
+              <span class="tech-badge">Supabase</span>
+              <span class="tech-badge">Logistics</span>
+            </div>
+          </div>
+
+          <div class="card-expanded">
+            <p><strong>Solving fragmented workflows in East African supply chain management.</strong></p>
+
+            <ul class="contribution-list">
+              <li>Real-time cargo visibility across ports</li>
+              <li>Multi-currency payment orchestration</li>
+              <li>Automated documentation workflows</li>
+              <li>Vendor performance analytics</li>
+            </ul>
+
+            <div class="card-action">
+              <button id="open-plan-freight" class="action-btn">
+                <span>View Business Plan</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Monolith Engine Analyzer -->
+        <article class="expandable-card" data-project="monolith">
+          <div class="card-preview">
+            <div class="card-header">
+              <div>
+                <div class="card-tag">Intellectual Asset · Research</div>
+                <h3>Monolith Engine Analyzer</h3>
+              </div>
+              <button class="expand-toggle" aria-label="Expand project details">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            <p class="preview-text">
+              Growth simulation and optimization engine for analyzing dynamic systems under volatility.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-badge">Python</span>
+              <span class="tech-badge">React</span>
+              <span class="tech-badge">NumPy</span>
+            </div>
+          </div>
+
+          <div class="card-expanded">
+            <p><strong>Deep intellectual work in systems modeling and complex adaptive behavior prediction.</strong></p>
+
+            <div class="framework-grid">
+              <div class="framework-item">
+                <h5>Financial Modeling</h5>
+                <p>Portfolio growth under volatility constraints</p>
+              </div>
+              <div class="framework-item">
+                <h5>Business Scaling</h5>
+                <p>Optimal growth path identification</p>
+              </div>
+              <div class="framework-item">
+                <h5>Risk Assessment</h5>
+                <p>System failure probability under stress</p>
+              </div>
+            </div>
+
+            <div class="card-action">
+              <a href="#" class="action-btn" target="_blank">
+                <span>View White Paper</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Next Button -->
+      <button class="carousel-nav-btn next" id="carousel-next" aria-label="Next publication">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
     </div>
   </div>
-</section>
-
-</div>
 </section>
 
 <!-- INVESTMENT MEMO MODAL STRUCTURE -->
@@ -3312,11 +3744,153 @@
     // Event Listeners
     window.addEventListener('scroll', onScroll);
 
-    // Initialize flow dots
     const flowDots = document.querySelectorAll('.flow-dot');
     flowDots.forEach((dot, index) => {
       dot.style.animationDelay = `${index * 0.5} s`;
     });
+
+    // --- PUBLICATIONS CAROUSEL ---
+    const carousel = document.getElementById('publications-carousel');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+
+    if (carousel && prevBtn && nextBtn) {
+      let autoScrollInterval;
+      let isUserInteracting = false;
+      let isCardExpanded = false;
+
+      // Get card width dynamically
+      function getCardWidth() {
+        const card = carousel.querySelector('.expandable-card');
+        if (!card) return 0;
+        return card.offsetWidth + parseFloat(getComputedStyle(carousel).gap || 0);
+      }
+
+      // Get random interval between 5-7 seconds
+      function getRandomInterval() {
+        return Math.floor(Math.random() * (7000 - 5000 + 1)) + 5000;
+      }
+
+      // Scroll to next card
+      function scrollNext() {
+        const cardWidth = getCardWidth();
+        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+
+      // Scroll to previous card
+      function scrollPrev() {
+        const cardWidth = getCardWidth();
+        carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      }
+
+      // Auto-scroll function with random interval
+      function startAutoScroll() {
+        function scheduleNextScroll() {
+          const interval = getRandomInterval();
+          autoScrollInterval = setTimeout(() => {
+            if (!isUserInteracting && !isCardExpanded) {
+              // Check if at end, if so, scroll back to start
+              const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+              if (carousel.scrollLeft >= maxScroll - 10) {
+                carousel.scrollTo({ left: 0, behavior: 'smooth' });
+              } else {
+                scrollNext();
+              }
+            }
+            scheduleNextScroll(); // Schedule next scroll
+          }, interval);
+        }
+        scheduleNextScroll();
+      }
+
+      // Stop auto-scroll
+      function stopAutoScroll() {
+        if (autoScrollInterval) {
+          clearTimeout(autoScrollInterval);
+        }
+      }
+
+      // Handle card expansion/collapse
+      const expandToggles = carousel.querySelectorAll('.expand-toggle');
+      expandToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const card = toggle.closest('.expandable-card');
+          if (card) {
+            // Check if card is being expanded or collapsed
+            const willExpand = !card.classList.contains('expanded');
+
+            if (willExpand) {
+              // Card is being expanded - pause autoscroll
+              isCardExpanded = true;
+              stopAutoScroll();
+            } else {
+              // Card is being collapsed - resume autoscroll
+              isCardExpanded = false;
+              if (!isUserInteracting) {
+                stopAutoScroll();
+                startAutoScroll();
+              }
+            }
+          }
+        });
+      });
+
+      // Button click handlers
+      nextBtn.addEventListener('click', () => {
+        isUserInteracting = true;
+        scrollNext();
+        stopAutoScroll();
+        setTimeout(() => {
+          isUserInteracting = false;
+          if (!isCardExpanded) {
+            startAutoScroll();
+          }
+        }, 10000); // Resume auto-scroll after 10 seconds
+      });
+
+      prevBtn.addEventListener('click', () => {
+        isUserInteracting = true;
+        scrollPrev();
+        stopAutoScroll();
+        setTimeout(() => {
+          isUserInteracting = false;
+          if (!isCardExpanded) {
+            startAutoScroll();
+          }
+        }, 10000); // Resume auto-scroll after 10 seconds
+      });
+
+      // Pause on hover
+      carousel.addEventListener('mouseenter', () => {
+        isUserInteracting = true;
+        stopAutoScroll();
+      });
+
+      carousel.addEventListener('mouseleave', () => {
+        isUserInteracting = false;
+        if (!isCardExpanded) {
+          startAutoScroll();
+        }
+      });
+
+      // Pause on touch/drag
+      carousel.addEventListener('touchstart', () => {
+        isUserInteracting = true;
+        stopAutoScroll();
+      });
+
+      carousel.addEventListener('touchend', () => {
+        setTimeout(() => {
+          isUserInteracting = false;
+          if (!isCardExpanded) {
+            startAutoScroll();
+          }
+        }, 10000);
+      });
+
+      // Start auto-scroll
+      startAutoScroll();
+    }
   });
 </script>
 {% endblock extra_js %}
