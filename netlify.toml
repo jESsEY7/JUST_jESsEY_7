@@ -1,5 +1,5 @@
 [build]
-  command = "pip install setuptools>=65.0.0 && pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py build"
+  command = "pip install setuptools>=65.0.0 && pip install --force-reinstall --no-cache-dir fs>=2.0.17 && pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py build"
   publish = "build"
 
 [build.environment]
