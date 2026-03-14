@@ -4,8 +4,8 @@
 
 [build.environment]
   PYTHON_VERSION = "3.11"
-+
-+[[redirects]]
-+  from = "/favicon.ico"
-+  to = "/static/images/favicon.png"
-+  status = 200
+
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/static/images/favicon.png"
+  status = 200
